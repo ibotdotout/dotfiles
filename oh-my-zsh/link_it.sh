@@ -1,3 +1,5 @@
 #!/usr/bin/ bash
 
-ln -s $PWD/.zshrc ~/.zshrc
+FILE=".zshrc"
+rm ~/$FILE
+ln -s $PWD/$FILE ~/$FILE
