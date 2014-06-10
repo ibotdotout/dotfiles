@@ -1,5 +1,6 @@
 "Mapp jk to <ESC>
 inoremap jk <ESC>
+inoremap kj <ESC>
 
 "change <Leader> / to ,
 let mapleader = ","
