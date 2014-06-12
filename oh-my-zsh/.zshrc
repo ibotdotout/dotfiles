@@ -56,3 +56,6 @@ export PATH=/usr/local/bin:$PATH
 
 # tmux with 256color support
 alias tmux="TERM=screen-256color-bce tmux"
+
+# enalbe nosetests color by rednose
+export NOSE_REDNOSE=1
