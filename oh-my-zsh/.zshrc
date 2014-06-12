@@ -59,3 +59,6 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 # enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
+
+#short cmd to call nosetests --with-coverage
+alias nosecoverage="nosetests --with-coverage"
