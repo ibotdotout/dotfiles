@@ -52,6 +52,7 @@ export LANG=en_US.UTF-8
 #add local bin pah
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
 #export PATH=/usr/local/share/python:$PATH
 
 # tmux with 256color support
