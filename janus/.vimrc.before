@@ -2,6 +2,25 @@
 inoremap jk <ESC>
 inoremap kj <ESC>
 
+" use vim, not vi api
+set nocompatible
+
+" no backup files
+set nobackup
+
+" no write backup
+set nowritebackup
+
+" no swap file
+set noswapfile
+
+" disalbe janus plugin
+call janus#disable_plugin('dispatch')
+call janus#disable_plugin('easymotion')
+call janus#disable_plugin('vimwiki')
+call janus#disable_plugin('indent-object')
+call janus#disable_plugin('vroom')
+
 "change <Leader> / to ,
 let mapleader = ","
 
@@ -16,3 +35,5 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" set PEP8
+au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79

@@ -1,4 +1,7 @@
 "------------------------------------------------------------------------------
-""" use solarized color scheme
+" use solarized color scheme
 set background=dark
 colorscheme solarized
+
+" disable auto comment insert
+autocmd FileType * setlocal formatoptions-=cro
