@@ -55,14 +55,17 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 #export PATH=/usr/local/share/python:$PATH
 
-# tmux with 256color support
-alias tmux="TERM=screen-256color-bce tmux"
-
 # enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
+
+# set virtualenv path for virutalwrapper
+export WORKON_HOME=~/dev/env_python
+
+# tmux with 256color support
+alias tmux="TERM=screen-256color-bce tmux"
 
 # short cmd to call nosetests --with-coverage
 alias nosecoverage="nosetests --with-coverage"
 
-# set virtualenv path for virutalwrapper
-export WORKON_HOME=~/dev/env_python
+# short pdflatex with output in folder
+alias pdflatex="pdflatex -output-directory=output"
