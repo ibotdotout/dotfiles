@@ -37,3 +37,4 @@ noremap <Right> <NOP>
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+au FileType tex set spell spelllang=en_us
