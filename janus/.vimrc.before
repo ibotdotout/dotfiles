@@ -37,4 +37,9 @@ noremap <Right> <NOP>
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+" set enable spelling check on latex
 au FileType tex set spell spelllang=en_us
+
+" set clomuns max at 80
+au FileType * setlocal wrap linebreak nolist columns=80
