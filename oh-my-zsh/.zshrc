@@ -60,6 +60,7 @@ export NOSE_REDNOSE=1
 
 # set virtualenv path for virutalwrapper
 export WORKON_HOME=~/dev/env_python
+source "/usr/local/bin/virtualenvwrapper.sh"
 
 # tmux with 256color support
 alias tmux="TERM=screen-256color-bce tmux"
