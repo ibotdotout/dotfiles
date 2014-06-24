@@ -53,13 +53,13 @@ export LANG=en_US.UTF-8
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-#export PATH=/usr/local/share/python:$PATH
+# export PATH=/usr/local/share/python:$PATH
 
 # enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
 
 # set virtualenv path for virutalwrapper
-export WORKON_HOME=~/dev/env_python
+export WORKON_HOME=$HOME/Dev/.env_python
 source "/usr/local/bin/virtualenvwrapper.sh"
 
 # tmux with 256color support
