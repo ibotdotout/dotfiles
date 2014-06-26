@@ -6,10 +6,10 @@ inoremap kj <ESC>
 set nocompatible
 
 " no backup files
-set nobackup
+"set nobackup
 
 " no write backup
-set nowritebackup
+"set nowritebackup
 
 " no swap file
 set noswapfile
@@ -22,7 +22,16 @@ call janus#disable_plugin('indent-object')
 call janus#disable_plugin('vroom')
 
 "change <Leader> / to ,
-let mapleader = ","
+"let mapleader = ","
+
+" use motion work with display line
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+nnoremap $ g$
+nnoremap ^ g^
+nnoremap 0 g0
 
 "Disable arrow key
 inoremap <Up> <NOP>
@@ -34,6 +43,10 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+
+"Mute Highlighting
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
