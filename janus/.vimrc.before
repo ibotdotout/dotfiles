@@ -16,13 +16,14 @@ set noswapfile
 
 " disalbe janus plugin
 call janus#disable_plugin('dispatch')
-call janus#disable_plugin('easymotion')
+"call janus#disable_plugin('easymotion')
 call janus#disable_plugin('vimwiki')
 call janus#disable_plugin('indent-object')
 call janus#disable_plugin('vroom')
+call janus#disable_plugin('multiple-cursors')
 
-"change <Leader> / to ,
-"let mapleader = ","
+"change <Leader> / to space
+let mapleader = " "
 
 " use motion work with display line
 nnoremap k gk
