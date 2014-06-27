@@ -37,13 +37,6 @@ ZSH_THEME="robbyrussell"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx ruby python brew terminalapp history)
-
-source $ZSH/oh-my-zsh.sh
-
 # Customize to your needs...
 # suport thai in terminal
 export LC_ALL=en_US.UTF-8
@@ -53,13 +46,14 @@ export LANG=en_US.UTF-8
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-# export PATH=/usr/local/share/python:$PATH
+export PATH=/usr/local/share/python:$PATH
 
 # enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
 
 # set virtualenv path for virutalwrapper
 export WORKON_HOME=$HOME/Dev/.env_python
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source "/usr/local/bin/virtualenvwrapper.sh"
 
 # tmux with 256color support
@@ -70,3 +64,19 @@ alias nosecoverage="nosetests --with-coverage"
 
 # short pdflatex with output in folder
 alias pdflatex="pdflatex -output-directory=output"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+
+# https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins
+plugins=(git osx python pip tmux vi-mode brew terminalapp sublime history)
+
+# blind key in vi-mode
+bindkey -v "jk" vi-cmd-mode
+bindkey -v "kj" vi-cmd-mode
+bindkey -a  '^R' history-incremental-search-backward
+
+# run zsh
+source $ZSH/oh-my-zsh.sh
+
