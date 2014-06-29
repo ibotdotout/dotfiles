@@ -67,6 +67,9 @@ alias pdflatex="pdflatex -output-directory=output"
 # make rm prompt before delete
 alias rm="/bin/rm -i"
 
+# use clear without keep it in history
+alias clear=" clear"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
