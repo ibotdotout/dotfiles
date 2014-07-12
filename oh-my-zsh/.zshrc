@@ -58,8 +58,8 @@ source "/usr/local/bin/virtualenvwrapper.sh"
 # tmux with 256color support
 alias tmux="TERM=screen-256color-bce tmux"
 
-# short cmd to call nosetests --with-coverage
-alias nosecoverage="nosetests --with-coverage"
+# short cmd to call nosetests --with-coverage and filter Third-party Librarie
+alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
 
 # short pdflatex with output in folder
 alias pdflatex="pdflatex -output-directory=output"
