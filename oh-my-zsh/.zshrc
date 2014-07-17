@@ -55,6 +55,7 @@ export WORKON_HOME=$HOME/Dev/.env_python
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source "/usr/local/bin/virtualenvwrapper.sh"
 
+
 # tmux with 256color support
 alias tmux="TERM=screen-256color-bce tmux"
 
@@ -75,13 +76,15 @@ alias clear=" clear"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins
-plugins=(git osx python pip tmux vi-mode brew terminalapp sublime history)
+# plugins=(git osx python pip tmux vi-mode brew terminalapp sublime history)
+plugins=(git osx python pip tmux brew terminalapp sublime history)
 
 # blind key in vi-mode
-bindkey -v "jk" vi-cmd-mode
-bindkey -v "kj" vi-cmd-mode
-bindkey -a  '^R' history-incremental-search-backward
+# bindkey -v "jk" vi-cmd-mode
+# bindkey -v "kj" vi-cmd-mode
+# bindkey -a  '^R' history-incremental-search-backward
 
 # run zsh
 source $ZSH/oh-my-zsh.sh
-
+# autoenv
+source "/usr/local/opt/autoenv/activate.sh"
