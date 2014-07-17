@@ -86,5 +86,3 @@ plugins=(git osx python pip tmux brew terminalapp sublime history)
 
 # run zsh
 source $ZSH/oh-my-zsh.sh
-# autoenv
-source "/usr/local/opt/autoenv/activate.sh"
