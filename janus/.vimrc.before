@@ -5,6 +5,9 @@ inoremap kj <ESC>
 " use vim, not vi api
 set nocompatible
 
+" yank to clipboard
+set clipboard=unnamed
+
 " no backup files
 "set nobackup
 
