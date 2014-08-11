@@ -1,13 +1,4 @@
 set nocompatible
-"Vim-pathogen 
-execute pathogen#infect()
-filetype plugin indent on
-
-"vim-colors-solarized
-"syntax enable
-"set background=dark
-"colorscheme solarized
-"set t_Co=256
 
 "About Search
 set incsearch
@@ -25,24 +16,10 @@ set smartindent
 "About Tab
 set smarttab
 
-"Fold
-"set foldmethod=indent
-"set foldmethod=syntax
-"set foldnestmax=10
-"set nofoldenable
-"set foldlevel=1
-
-"Auto Save fold
-"au BufWinLeave * mkview
-"au BufWinEnter * silent loadview
-
-"Auto Gen Ctags when saved
-"autocmd BufWritePost * call system("ctags -R")
-
 "Use UTF-8.
 set encoding=utf8
 
-"PEP 8 Python 
+"PEP 8 Python
 set textwidth=79  " lines longer than 79 columns will be broken
 set shiftwidth=4  " operation >> indents 4 columns; << unindents 4 columns
 set tabstop=4     " an hard TAB displays as 4 columns
@@ -62,3 +39,21 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+"Mapp jk to <ESC>
+inoremap jk <ESC>
+inoremap kj <ESC>
+
+" no swap file
+set noswapfile
+
+" use motion work with display line
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+nnoremap $ g$
+nnoremap ^ g^
+nnoremap 0 g0
+
+"Mute Highlighting
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
