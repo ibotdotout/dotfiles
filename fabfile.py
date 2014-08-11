@@ -37,6 +37,10 @@ def install_python_virtualenv():
     run('echo "source /usr/local/bin/virtualenvwrapper.sh" >> %s' % bashrc)
 
 
+def intall_git():
+    sudo("apt-get update & apt-get install git-core -y")
+
+
 def set_devenv():
     install_vim()
     download_vimrc()
@@ -44,3 +48,4 @@ def set_devenv():
     download_tmux_conf()
     install_python_pip()
     install_python_virtualenv()
+    intall_git()
