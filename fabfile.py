@@ -39,6 +39,11 @@ def install_python_virtualenv():
 
 def intall_git():
     sudo("apt-get update & apt-get install git-core -y")
+    
+
+def install_janus_vim():
+    sudo("sudo apt-get install ruby-dev rake exuberant-ctags ack-grep")
+    run("wget https://bit.ly/janus-bootstrap -O - | bash")
 
 
 def set_devenv():
