@@ -1,5 +1,5 @@
 # pip install fabric
-# run with "fab set_devenv"
+# run with "fab -H <host> <func>"
 
 from fabric.api import sudo, run
 
