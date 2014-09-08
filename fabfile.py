@@ -44,6 +44,11 @@ def intall_git():
 def install_janus_vim():
     sudo("sudo apt-get install ruby-dev rake exuberant-ctags ack-grep")
     run("wget https://bit.ly/janus-bootstrap -O - | bash")
+    
+
+def install_docker_io():
+    sudo("sudo apt-get update")
+    sudo("sudo apt-get install docker.io")
 
 
 def set_devenv():
