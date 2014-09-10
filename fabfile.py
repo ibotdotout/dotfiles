@@ -50,6 +50,12 @@ def install_docker_io():
     sudo("apt-get update & apt-get install docker.io -y")
     sudo("gpasswd -a ${USER} docker")
     sudo("service docker.io restart")
+    
+def install_oh_my_zsh():
+    sudo("apt-get update & apt-get install zsh git-core -y")
+    run("wget --no-check-certificate http://install.ohmyz.sh -O - | sh")
+    run("chsh -s `which zsh`")
+    sudo("shutdown -l") #logout
 
 
 def set_devenv():
