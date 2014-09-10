@@ -42,8 +42,19 @@ def intall_git():
     
 
 def install_janus_vim():
-    sudo("apt-get install ruby-dev rake exuberant-ctags ack-grep -y")
+    sudo("apt-get install ruby-dev rake exuberant-ctags ack-grep git-core -y")
     run("wget https://bit.ly/janus-bootstrap -O - | bash")
+    
+def download_janus_vim_conf():
+    url = "https://raw.githubusercontent.com/" \
+          "ibotdotout/.devenv/master/janus/.vimrc.after"
+    run("wget %s" % url)
+    url = "https://raw.githubusercontent.com/" \
+          "ibotdotout/.devenv/master/janus/.vimrc.before"
+    run("wget %s" % url)
+    run("cd ~/.janus")
+    run("git clone https://github.com/altercation/vim-colors-solarized.git")
+    run("git clone https://github.com/Lokaltog/vim-powerline.git")
     
 
 def install_docker_io():
