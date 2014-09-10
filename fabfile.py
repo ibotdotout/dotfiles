@@ -1,4 +1,11 @@
+# debian
+# sudo apt-get install python-dev python-pip
+# sudo pip install fabric
+
+# osx
 # pip install fabric
+
+# usage
 # run with "fab -H <host> <func>"
 
 from fabric.api import sudo, run
