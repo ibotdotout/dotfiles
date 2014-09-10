@@ -1,6 +1,5 @@
 # debian
-# sudo apt-get install python-dev python-pip
-# sudo pip install fabric
+# sudo apt-get install fabric
 
 # osx
 # pip install fabric
