@@ -58,6 +58,7 @@ def download_janus_vim_conf():
     url = "https://raw.githubusercontent.com/" \
           "ibotdotout/.devenv/master/janus/.vimrc.before"
     run("wget %s" % url)
+    run("mkdir -p ~/.janus")
     run("cd ~/.janus")
     run("git clone https://github.com/altercation/vim-colors-solarized.git")
     run("git clone https://github.com/Lokaltog/vim-powerline.git")
