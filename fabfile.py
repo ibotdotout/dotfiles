@@ -48,6 +48,8 @@ def install_janus_vim():
 
 def install_docker_io():
     sudo("apt-get update & apt-get install docker.io -y")
+    sudo("gpasswd -a ${USER} docker")
+    sudo("service docker.io restart")
 
 
 def set_devenv():
