@@ -36,6 +36,7 @@ def install_janus_vim():
     run("wget https://bit.ly/janus-bootstrap -O - | bash")
     
 def download_janus_vim_conf():
+    sudo("pip install flake8 pylint") #To support python syntastic
     url = "https://raw.githubusercontent.com/" \
           "ibotdotout/.devenv/master/janus/.vimrc.after"
     run("wget %s" % url)
