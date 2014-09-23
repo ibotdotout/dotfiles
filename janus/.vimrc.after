@@ -5,3 +5,6 @@ colorscheme solarized
 
 " disable auto comment insert
 autocmd FileType * setlocal formatoptions-=cro
+
+" nerdcommenter comment with space //.<code>
+let NERDSpaceDelims=1  
