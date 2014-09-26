@@ -54,6 +54,7 @@ def install_tmux():
 
 
 def download_tmux_conf():
+    sudo("apt-get update & apt-get install xclip -y")
     url = "https://raw.githubusercontent.com/" \
           "ibotdotout/.devenv/master/tmux/.tmux.conf"
     run("wget %s" % url)
