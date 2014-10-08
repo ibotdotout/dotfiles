@@ -6,5 +6,12 @@ colorscheme solarized
 " disable auto comment insert
 autocmd FileType * setlocal formatoptions-=cro
 
+" auto enter NERDTree if no file were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" auto close if left only NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 " nerdcommenter comment with space //.<code>
 let NERDSpaceDelims=1  
