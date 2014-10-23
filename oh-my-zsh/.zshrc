@@ -55,10 +55,6 @@ export WORKON_HOME=$HOME/Dev/.env_python
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source "/usr/local/bin/virtualenvwrapper.sh"
 
-
-# tmux with 256color support
-alias tmux="TERM=screen-256color-bce tmux"
-
 # short cmd to call nosetests --with-coverage and filter Third-party Librarie
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
 
