@@ -1,2 +1,4 @@
 [alias]
-    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  trig-jenkins = !curl http://yourjenkinsservergit/notifyCommit?url=$(git remote -v | grep -m 1 -oh "git@.*git")
+  push-wt = !git push && git trig-jenkins
