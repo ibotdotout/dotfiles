@@ -70,6 +70,9 @@ alias clear=" clear"
 # Docker: remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
 alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm"
 
+# load boot2docker env
+$(boot2docker shellinit 2> /dev/null)
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
