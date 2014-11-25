@@ -29,7 +29,12 @@ call janus#disable_plugin('multiple-cursors')
 let mapleader = " "
 
 " remap CtrlP to avoid GoldenView.View
+let g:ctrlp_map = '<leader>p'
 nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Remap tagbar toggle
+nnoremap <leader>t :TagbarToggle<CR>
 
 " use motion work with display line
 nnoremap k gk
