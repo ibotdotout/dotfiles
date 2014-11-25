@@ -28,6 +28,9 @@ call janus#disable_plugin('multiple-cursors')
 "change <Leader> / to space
 let mapleader = " "
 
+" remap CtrlP to avoid GoldenView.View
+nnoremap <leader>p :CtrlP<CR>
+
 " use motion work with display line
 nnoremap k gk
 nnoremap gk k
@@ -58,6 +61,3 @@ au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
 au FileType liquid set spell spelllang=en_us
-
-" set clomuns max at 80
-au FileType * setlocal wrap linebreak nolist columns=80
