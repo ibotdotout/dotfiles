@@ -33,8 +33,9 @@ let g:ctrlp_map = '<leader>p'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
-" Remap tagbar toggle
-nnoremap <leader>t :TagbarToggle<CR>
+" remap Tagbar <c-n>, <c-p> to avoid GolderView.View
+let g:tagbar_map_nexttag = ""
+let g:tagbar_map_prevtag = ""
 
 " use motion work with display line
 nnoremap k gk
