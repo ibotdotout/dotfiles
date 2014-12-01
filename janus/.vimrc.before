@@ -31,7 +31,10 @@ let mapleader = " "
 " remap CtrlP to avoid GoldenView.View
 let g:ctrlp_map = '<leader>p'
 nnoremap <leader>p :CtrlP<CR>
-nnoremap <leader>. :CtrlPTag<cr>
+
+" remap Tagbar
+nnoremap <leader>[ :TagbarToggle<CR>
+nnoremap <leader>] :TagbarOpen fj<CR>
 
 " remap Tagbar <c-n>, <c-p> to avoid GolderView.View
 let g:tagbar_map_nexttag = ""
@@ -56,6 +59,12 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+"move between windows
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 
 "Mute Highlighting
