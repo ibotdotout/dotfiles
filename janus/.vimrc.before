@@ -60,6 +60,9 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" split shortcut
+nnoremap <C-s> :split<CR>
+nnoremap <C-v> :vsplit fj<CR>
 
 "Mute Highlighting
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
