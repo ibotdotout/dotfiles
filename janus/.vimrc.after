@@ -15,3 +15,6 @@ autocmd FileType * setlocal formatoptions-=cro
 
 " nerdcommenter comment with space //.<code>
 let NERDSpaceDelims=1
+
+" toggle for disble relative number in number.vim
+autocmd VimEnter * call NumbersToggle()
