@@ -4,3 +4,9 @@
 [submodule "janus/.janus/vim-powerline"]
 	path = janus/.janus/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "janus/.janus/GoldenView.Vim"]
+	path = janus/.janus/GoldenView.Vim
+	url = https://github.com/zhaocai/GoldenView.Vim.git
+[submodule "janus/.janus/numbers.vim"]
+	path = janus/.janus/numbers.vim
+	url = https://github.com/myusuf3/numbers.vim.git
