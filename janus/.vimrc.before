@@ -28,6 +28,7 @@ nnoremap <leader>[ :TagbarToggle<CR>
 nnoremap <leader>] :TagbarOpen fj<CR>
 
 " remap Number.vim
+let g:enable_numbers = 0
 nnoremap <F3> :NumbersToggle<CR>
 
 " local settings

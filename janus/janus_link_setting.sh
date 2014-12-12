@@ -16,3 +16,8 @@ if [ -f "$HOME/.vimrc.after" ]; then
   mv ~/$FILE.after ~/$FILE.after.old
 fi
 ln -s $PWD/$FILE.after ~/$FILE.after
+
+if [ -f "$HOME/.vimrc.local" ]; then
+  mv ~/$FILE.local ~/$FILE.local.old
+fi
+ln -s $PWD/../vim/$FILE.local ~/$FILE.local
