@@ -5,7 +5,7 @@ DIR="$HOME/.janus"
 if [ -d $DIR ]; then
   mv $DIR ~/.janus.old
 fi
-git submodule update .
+git submodule update --init .
 ln -s $PWD/.janus  ~
 
 if [ -f "$HOME/.vimrc.before" ]; then
