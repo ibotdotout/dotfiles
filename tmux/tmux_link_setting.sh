@@ -1,4 +1,4 @@
-#!/usr/bin/ bash
+#!/bin/bash
 
 FILE=".tmux.conf"
 if [ -f "$HOME/.tmux.conf" ]; then
