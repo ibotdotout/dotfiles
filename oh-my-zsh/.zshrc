@@ -39,10 +39,6 @@ ZSH_THEME="robbyrussell"
 
 # Customize to your needs...
 
-# recovery ctrl+s
-stty ixany
-stty ixoff -ixon
-
 # suport thai in terminal
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -56,9 +52,12 @@ export PATH=/usr/local/sbin:$PATH
 export NOSE_REDNOSE=1
 
 # set virtualenv path for virutalwrapper
-export WORKON_HOME=$HOME/Dev/.env_python
+export WORKON_HOME=$HOME/develop/.env_python
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source "/usr/local/bin/virtualenvwrapper.sh"
+
+# tmuxinator
+export EDITOR='vim'
 
 # short cmd to call nosetests --with-coverage and filter Third-party Librarie
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
@@ -73,7 +72,28 @@ alias rm="/bin/rm -i"
 alias clear=" clear"
 
 # Docker: remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
-alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm"
+alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
+
+# Open Google Chrome
+alias chrome="open -a /Applications/Google\ Chrome.app"
+
+# Show Hidden in Finder OSX
+alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
+alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
+
+# less color manpages
+# http://www.cyberciti.biz/faq/linux-unix-colored-man-pages-with-less-command/
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
 
 # load boot2docker env
 $(boot2docker shellinit 2> /dev/null)
@@ -84,7 +104,7 @@ $(boot2docker shellinit 2> /dev/null)
 
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins
 # plugins=(git osx python pip tmux vi-mode brew terminalapp sublime history)
-plugins=(git osx python pip tmux brew terminalapp docker sublime history)
+plugins=(git osx python pip brew terminalapp docker sublime tmuxinator history)
 
 # blind key in vi-mode
 # bindkey -v "jk" vi-cmd-mode

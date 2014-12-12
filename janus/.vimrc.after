@@ -14,4 +14,4 @@ autocmd FileType * setlocal formatoptions-=cro
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " nerdcommenter comment with space //.<code>
-let NERDSpaceDelims=1  
+let NERDSpaceDelims=1

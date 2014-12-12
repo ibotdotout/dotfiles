@@ -6,7 +6,7 @@ inoremap kj <ESC>
 set nocompatible
 
 " yank to clipboard
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " no backup files
 "set nobackup
@@ -24,6 +24,9 @@ call janus#disable_plugin('vimwiki')
 call janus#disable_plugin('indent-object')
 call janus#disable_plugin('vroom')
 call janus#disable_plugin('multiple-cursors')
+call janus#disable_plugin('snipmate')
+" call janus#disable_plugin('GoldenView.Vim')
+
 
 "change <Leader> / to space
 let mapleader = " "
@@ -31,17 +34,22 @@ let mapleader = " "
 " remap CtrlP to avoid GoldenView.View
 let g:ctrlp_map = '<leader>p'
 nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>. :CtrlPTag<cr>
+
+" remap Tagbar to avoid GolderView.View
+let g:tagbar_map_nexttag = ""
+let g:tagbar_map_prevtag = ""
 
 " remap Tagbar
 nnoremap <leader>[ :TagbarToggle<CR>
 nnoremap <leader>] :TagbarOpen fj<CR>
 
-" remap Tagbar <c-n>, <c-p> to avoid GolderView.View
-let g:tagbar_map_nexttag = ""
-let g:tagbar_map_prevtag = ""
+" remap Number.vim
+nnoremap <F3> :NumbersToggle<CR>
 
 " use motion work with display line
 nnoremap k gk
+
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
@@ -59,10 +67,6 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-
-" split shortcut
-nnoremap <C-s> :split<CR>
-nnoremap <C-v> :vsplit fj<CR>
 
 "Mute Highlighting
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
