@@ -38,6 +38,11 @@ ZSH_THEME="robbyrussell"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Customize to your needs...
+
+# recovery ctrl+s
+stty ixany
+stty ixoff -ixon
+
 # suport thai in terminal
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
