@@ -1,6 +1,6 @@
 #!/bin/bash
 
 FILE=".zshrc"
-ln -s $PWD/$FILE ~/$FILE
-ln -s $PWD/$FILE.local ~/$FILE.local
-ln -s $PWD/.zpreztorc ~/.zpreztorc
+ln -sf $PWD/$FILE ~/$FILE
+ln -sf $PWD/$FILE.local ~/$FILE.local
+ln -sf $PWD/.zpreztorc ~/.zpreztorc
