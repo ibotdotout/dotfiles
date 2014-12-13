@@ -1,6 +1,9 @@
 " use vim, not vi api
 set nocompatible
 
+" support screen-256color
+set t_Co=256
+
 " yank to clipboard
 " set clipboard=unnamed
 
