@@ -52,9 +52,9 @@ export PATH=/usr/local/sbin:$PATH
 export NOSE_REDNOSE=1
 
 # set virtualenv path for virutalwrapper
-export WORKON_HOME=$HOME/develop/.env_python
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-source "/usr/local/bin/virtualenvwrapper.sh"
+# export WORKON_HOME=$HOME/develop/.env_python
+# export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+# source "/usr/local/bin/virtualenvwrapper.sh"
 
 # tmuxinator
 export EDITOR='vim'
