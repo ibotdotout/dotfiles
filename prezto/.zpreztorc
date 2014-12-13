@@ -33,14 +33,14 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt' \
-  'osx' \
-  'git' \
-  'homebrew' \
-  'python' \
   'history-substring-search' \
-  'tmux' \
-  'ssh' \
-  'terminal'
+  'git'
+#  'osx' \
+#  'homebrew' \
+#  'python' \
+#  'tmux' \
+#  'ssh' \
+#  'terminal'
 
 #
 # Editor
