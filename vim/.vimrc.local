@@ -75,3 +75,11 @@ au FileType liquid set spell spelllang=en_us
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
+" compile latex OSX
+" au BufWritePost *.tex silent call RunPdfLaTex()
+nnoremap <leader>ll :call RunPdfLaTex()<CR>
+function RunPdfLaTex()
+    silent execute "silent !(pdflatex % &> /dev/null | open %:p:r.pdf &)"
+    redraw!
+endfunction
+
