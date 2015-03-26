@@ -16,6 +16,10 @@ set t_Co=256
 " no swap file
 set noswapfile
 
+" show a visual line under the cursor's current line.
+set cursorline
+
+
 "Mapp jk to <ESC>
 inoremap jk <ESC>
 inoremap kj <ESC>
