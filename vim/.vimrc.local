@@ -79,11 +79,75 @@ au FileType liquid set spell spelllang=en_us
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
-" compile latex OSX
+" vimdiff function
+set diffexpr=MyDiff()
+function MyDiff()
+    silent execute "!python /Users/botbotbot/develop/video-au10/utils/my_diff.py " . v:fname_in . " " . v:fname_new . " > " . v:fname_out
+endfunction
+
+" pdflatex function
 " au BufWritePost *.tex silent call RunPdfLaTex()
 nnoremap <leader>ll :call RunPdfLaTex()<CR>
-function RunPdfLaTex()
-    silent execute "silent !(pdflatex % &> /dev/null && open %:p:r.pdf) &"
+nnoremap <leader>lp :call CompilePdfLaTex()<CR>
+nnoremap <leader>l; :call RunPdfLaTexBibTex()<CR>
+nnoremap <leader>lo :call OpenPdfLaTex()<CR>
+nnoremap <leader>lk :call OpenPdfLaTexLog()<CR>
+
+" nose pdb function
+nnoremap <leader>dd :call NosePdb()<CR><CR>
+
+function OpenPdfLaTexLog()
+    silent execute "rightbelow split %:p:r.log"
     redraw!
 endfunction
 
+function OpenPdfLaTex()
+    silent execute "silent !open %:p:r.pdf  &"
+    redraw!
+endfunction
+
+function CompilePdfLaTex()
+    let latex = system("pdflatex ".expand("%"))
+    if v:shell_error
+      echom "pdflatex compile failed"
+    else
+      echom "pdflatex compiled"
+    endif
+endfunction
+
+function CompileBibTex()
+    let latex = system("bibtex ".expand("%:r"))
+    if v:shell_error
+      echom "bibtex compile failed"
+    else
+      echom "bibtex compiled"
+    endif
+endfunction
+
+function RunPdfLaTex()
+    call CompilePdfLaTex() "pdf
+    if !v:shell_error
+      call OpenPdfLaTex() "open
+    endif
+endfunction
+
+function RunPdfLaTexBibTex()
+  call CompilePdfLaTex() "pdf
+  if !v:shell_error
+    call CompileBibTex() "bib
+    if !v:shell_error
+      call CompilePdfLaTex() "pdf
+      if !v:shell_error
+        call CompilePdfLaTex() "pdf
+        if !v:shell_error
+          call OpenPdfLaTex() "open
+        endif
+      endif
+    endif
+  endif
+endfunction
+
+
+function NosePdb()
+  normal ofrom nose.tools import set_trace; set_trace()
+endfunction
