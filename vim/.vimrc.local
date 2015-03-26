@@ -79,6 +79,14 @@ au FileType liquid set spell spelllang=en_us
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
+" run autoPEP8
+set autoread
+au BufWritePost *.py silent call AutoPEP8()
+" nnoremap <leader>pp :call AutoPEP8()<CR>
+function AutoPEP8()
+    silent execute '!autopep8 --in-place --aggressive --aggressive '.expand("%")
+endfunction
+
 " vimdiff function
 set diffexpr=MyDiff()
 function MyDiff()
