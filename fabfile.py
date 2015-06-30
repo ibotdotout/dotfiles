@@ -10,6 +10,10 @@
 from fabric.api import sudo, run, cd
 
 
+def _wget(url):
+    sudo("wget -N %s" % url)
+
+
 def intall_git():
     sudo("apt-get update && apt-get install git-core -y")
 
@@ -18,21 +22,19 @@ def install_oh_my_zsh():
     sudo("apt-get update && apt-get install zsh git-core -y")
     run("wget https://raw.github.com/robbyrussell/oh-my-zsh/"
         "master/tools/install.sh -O install-oh-my-zsh.sh")
-    run("sed -i \"/chsh -s $(grep /zsh$ /etc/shells | tail -1)/"
-        " s/$/ `cut -d: -f1 /etc/passwd | tail -1`\" install-oh-my-zsh.sh")
-    run("chsh -s `which zsh` `whoami`")
-    run(". ./install_oh_my_zsh.sh")
-    run("rm ./install_oh_my_zsh.sh")
+    run("sed -i \"/chsh/ s/$/ `whoami`/\" install-oh-my-zsh.sh")
+    sudo("cat ./install-oh-my-zsh.sh | bash")
+    run("rm ./install-oh-my-zsh.sh")
     # sudo("shutdown -l")  # logout
 
 
 def download_zshrc():
-    url = "https://github.com/ibotdotout/dotfiles/blob/" \
-        "master/oh-my-zsh/.zshrc"
-    url_local = "https://github.com/ibotdotout/dotfiles/blob/" \
-        "master/oh-my-zsh/.zshrc.local"
-    run("wget %s" % url)
-    run("wget %s" % url_local)
+    url = "https://raw.githubusercontent.com/" \
+        "ibotdotout/.devenv/master/oh-my-zsh/.zshrc"
+    url_local = "https://raw.githubusercontent.com/" \
+        "ibotdotout/.devenv/master/oh-my-zsh/.zshrc.local"
+    _wget(url)
+    _wget(url_local)
 
 
 def install_vim():
@@ -42,7 +44,10 @@ def install_vim():
 def download_vimrc():
     url = "https://raw.githubusercontent.com/" \
         "ibotdotout/.devenv/master/vim/.vimrc"
-    run("wget %s" % url)
+    _wget(url)
+    url = "https://raw.githubusercontent.com/" \
+        "ibotdotout/.devenv/master/vim/.vimrc.local"
+    _wget(url)
 
 
 def install_janus_vim():
@@ -54,13 +59,17 @@ def download_janus_vim_conf():
     sudo("pip install flake8 pylint")  # To support python syntastic
     url = "https://raw.githubusercontent.com/" \
         "ibotdotout/.devenv/master/janus/.vimrc.after"
-    run("wget %s" % url)
+    _wget(url)
     url = "https://raw.githubusercontent.com/" \
         "ibotdotout/.devenv/master/janus/.vimrc.before"
-    run("wget %s" % url)
+    _wget(url)
+    url = "https://raw.githubusercontent.com/" \
+        "ibotdotout/.devenv/master/vim/.vimrc.local"
+    _wget(url)
     run("mkdir -p ~/.janus")
     with cd('~/.janus'):
-        run("git clone https://github.com/altercation/vim-colors-solarized.git")
+        run("git clone"
+            " https://github.com/altercation/vim-colors-solarized.git")
         run("git clone https://github.com/Lokaltog/vim-powerline.git")
 
 
@@ -72,7 +81,7 @@ def download_tmux_conf():
     sudo("apt-get update && apt-get install xclip -y")
     url = "https://raw.githubusercontent.com/" \
         "ibotdotout/.devenv/master/tmux/.tmux.conf"
-    run("wget %s" % url)
+    _wget(url)
 
 
 def install_python_pip():
@@ -116,6 +125,7 @@ def set_devenv():
 def set_koding():
     # set enviorment for koding.io
     install_oh_my_zsh()
+    download_zshrc()
     install_wemux()
     install_python_pip()
     install_janus_vim()
