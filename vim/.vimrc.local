@@ -104,6 +104,9 @@ nnoremap <leader>lk :call OpenPdfLaTexLog()<CR>
 " nose pdb function
 nnoremap <leader>dd :call NosePdb()<CR><CR>
 
+" python pdb function
+nnoremap <leader>db :call PythonPdb()<CR><CR>
+
 function OpenPdfLaTexLog()
     silent execute "rightbelow split %:p:r.log"
     redraw!
@@ -158,4 +161,8 @@ endfunction
 
 function NosePdb()
   normal ofrom nose.tools import set_trace; set_trace()
+endfunction
+
+function PythonPdb()
+  normal oimport pdb; pdb.set_trace()
 endfunction
