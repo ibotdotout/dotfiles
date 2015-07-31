@@ -1,3 +1,9 @@
+# prevents overwriting an existing file.
+setopt noclobber
+
+# ask before rm with star (*)
+unsetopt RM_STAR_SILENT
+
 # suport thai in terminal
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -10,11 +16,6 @@ export PATH=/usr/local/sbin:$PATH
 # enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
 
-# set virtualenv path for virutalwrapper
-export WORKON_HOME=$HOME/develop/.env_python
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-# source "/usr/local/bin/virtualenvwrapper.sh"
-
 # tmuxinator
 export EDITOR='vim'
 
@@ -22,23 +23,13 @@ export EDITOR='vim'
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
 
 # short pdflatex with output in folder
-alias pdflatex="pdflatex -output-directory=output"
-
-# make rm prompt before delete
-alias rm="/bin/rm -i"
+# alias pdflatex="pdflatex -output-directory=output"
 
 # use clear without keep it in history
 alias clear=" clear"
 
 # Docker: remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
 alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
-
-# Open Google Chrome
-alias chrome="open -a /Applications/Google\ Chrome.app"
-
-# Show Hidden in Finder OSX
-alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
-alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
 
 # less color manpages
 # http://www.cyberciti.biz/faq/linux-unix-colored-man-pages-with-less-command/
@@ -54,5 +45,25 @@ man() {
     man "$@"
 }
 
-# load boot2docker env
-$(boot2docker shellinit 2> /dev/null)
+#For Linux
+if [[ `uname` == 'Linux' ]]
+then
+  # Mac style copy/paste for linux machines
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+  alias pbselect='xclip -selection primary -o1'
+fi
+
+#For OSX Only
+if [[ `uname` == 'Darwin' ]]
+then
+  # Open Google Chrome
+  alias chrome="open -a /Applications/Google\ Chrome.app"
+
+  # Show Hidden in Finder OSX
+  alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
+  alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
+
+  # load boot2docker env
+  $(boot2docker shellinit 2> /dev/null)
+fi
