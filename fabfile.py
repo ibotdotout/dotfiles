@@ -66,11 +66,20 @@ def download_janus_vim_conf():
     url = "https://raw.githubusercontent.com/" \
         "ibotdotout/.devenv/master/vim/.vimrc.local"
     _wget(url)
+
     run("mkdir -p ~/.janus")
     with cd('~/.janus'):
-        run("git clone"
-            " https://github.com/altercation/vim-colors-solarized.git")
-        run("git clone https://github.com/Lokaltog/vim-powerline.git")
+        run("git clone "
+            "https://github.com/altercation/vim-colors-solarized.git")
+        run("git clone https://github.com/zhaocai/GoldenView.Vim.git")
+        run("git clone https://github.com/myusuf3/numbers.vim.git")
+        run("git clone https://github.com/bling/vim-airline.git")
+
+    # install powerline font for vim-airline
+    with cd('~/.fonts'):
+        run("wget https://raw.githubusercontent.com/powerline/fonts/"
+            "master/Meslo/Meslo%20LG%20M%20Regular%20for%20Powerline.otf")
+        run("fc-cache -vf ~/.fonts/")
 
 
 def install_tmux():
