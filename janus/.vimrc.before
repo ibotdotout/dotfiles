@@ -20,6 +20,10 @@ let g:ctrlp_map = '<leader>p'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
+" enable powerline font
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'solarized'
+
 " remap Tagbar to avoid GolderView.View
 let g:tagbar_map_nexttag = ""
 let g:tagbar_map_prevtag = ""
@@ -29,7 +33,7 @@ nnoremap <leader>[ :TagbarToggle<CR>
 nnoremap <leader>] :TagbarOpen fj<CR>
 
 " remap Number.vim
-let g:enable_numbers = 0
+let g:enable_numbers = 1
 nnoremap <F3> :NumbersToggle<CR>
 
 " local settings
