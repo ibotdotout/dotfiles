@@ -64,6 +64,9 @@ then
   alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
   alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
 
+  # open in sublime
+  alias st="open -a Sublime\ Text\ 2"
+
   # load boot2docker env
   $(boot2docker shellinit 2> /dev/null)
 fi
