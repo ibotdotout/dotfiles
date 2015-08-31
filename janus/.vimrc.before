@@ -11,6 +11,8 @@ call janus#disable_plugin('snipmate')
 " call janus#disable_plugin('vim-airline')
 " call janus#disable_plugin('GoldenView.Vim')
 " call janus#disable_plugin('numbers.vim')
+" call janus#disable_plugin('vim-thai-keys')
+
 
 "change <Leader> / to space
 let mapleader = " "
@@ -39,4 +41,8 @@ nnoremap <F3> :NumbersToggle<CR>
 " local settings
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
+endif
+
+if filereadable(getcwd()."/.vimrc.custom")
+  execute "source ".getcwd()."/.vimrc.custom"
 endif
