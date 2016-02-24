@@ -79,9 +79,11 @@ nnoremap 0 g0
 au FileType tex set spell spelllang=en_us
 au FileType liquid set spell spelllang=en_us
 
+" set for NodeJs
+au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
+
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
 
 " run autoPEP8
 set autoread
