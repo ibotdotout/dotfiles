@@ -4,6 +4,8 @@ set nocompatible
 " support screen-256color
 set t_Co=256
 
+set wildmenu
+
 " yank to clipboard
 " set clipboard=unnamed
 
@@ -20,10 +22,6 @@ set noswapfile
 set cursorline
 
 
-"Mapp jk to <ESC>
-inoremap jk <ESC>
-inoremap kj <ESC>
-
 "About Search
 set incsearch
 set hlsearch
@@ -32,7 +30,8 @@ set hlsearch
 syntax on
 
 "Show line number
-set nu
+set number
+set relativenumber
 
 "Automatically indent
 set smartindent
@@ -42,6 +41,10 @@ set smarttab
 
 "Use UTF-8.
 set encoding=utf8
+
+"Mapp jk to <ESC>
+"inoremap jk <ESC>
+"inoremap kj <ESC>
 
 "Disable arrow key
 inoremap <Up> <NOP>
@@ -64,13 +67,13 @@ nnoremap ^ g^
 nnoremap 0 g0
 
 "move between windows
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+"noremap <C-h> <C-w>h
+"noremap <C-j> <C-w>j
+"noremap <C-k> <C-w>k
+"noremap <C-l> <C-w>l
 
 "Mute Highlighting
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
@@ -78,6 +81,7 @@ au FileType liquid set spell spelllang=en_us
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
 
 " run autoPEP8
 set autoread
@@ -87,38 +91,14 @@ function AutoPEP8()
     silent execute '!autopep8 --in-place --aggressive --aggressive '.expand("%")
 endfunction
 
-" vimdiff function
-set diffexpr=MyDiff()
-function MyDiff()
-    silent execute "!python /Users/botbotbot/develop/video-au10/utils/my_diff.py " . v:fname_in . " " . v:fname_new . " > " . v:fname_out
-endfunction
-
 " nose pdb function
 nnoremap <leader>dd :call NosePdb()<CR><CR>
-
-" python pdb function
-nnoremap <leader>db :call PythonPdb()<CR><CR>
-
 function NosePdb()
   normal ofrom nose.tools import set_trace; set_trace()
 endfunction
 
+" python pdb function
+nnoremap <leader>db :call PythonPdb()<CR><CR>
 function PythonPdb()
   normal oimport pdb; pdb.set_trace()
 endfunction
-
-" tagbar custom latex
-let g:tagbar_type_plaintex = {
-    \ 'ctagstype' : 'plaintex',
-    \ 'kinds'     : [
-        \ 's:sections',
-        \ 't:subsections',
-        \ 'u:subsubsections',
-        \ 'c:citation',
-        \ 'g:graphics:0:0',
-        \ 'l:labels',
-        \ 'r:refs:1:0',
-        \ 'p:pagerefs:1:0'
-        \ ],
-    \ 'sort'    : 0,
-    \}
