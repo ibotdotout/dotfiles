@@ -121,6 +121,14 @@ def install_wemux():
          " >> /usr/local/etc/wemux.conf'")
 
 
+def install_node():
+    sudo("apt-get update && apt-get install -y nodejs npm")
+
+
+def install_jasmone():
+    sudo("npm install -g jasmine-node")
+
+
 def set_devenv():
     intall_git()
     install_tmux()
@@ -134,9 +142,9 @@ def set_devenv():
 def set_koding():
     # set enviorment for koding.io
     install_oh_my_zsh()
-    download_zshrc()
+    #  download_zshrc()
     install_wemux()
-    install_python_pip()
+    #  install_python_pip()
     install_janus_vim()
-    download_janus_vim_conf()
+    #  download_janus_vim_conf()
     download_tmux_conf()
