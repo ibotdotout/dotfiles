@@ -25,7 +25,6 @@ Plug 'plasticboy/vim-markdown'
 " Vim Theme
 Plug 'noahfrederick/vim-hemisu'
 Plug 'edkolev/tmuxline.vim'
-Plug 'edkolev/promptline.vim'
 
 call plug#end()
 
