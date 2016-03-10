@@ -1,6 +1,8 @@
 # prevents overwriting an existing file.
 setopt noclobber
 
+export TMPDIR="/private/tmp"
+
 # ask before rm with star (*)
 unsetopt RM_STAR_SILENT
 
@@ -18,6 +20,7 @@ export NOSE_REDNOSE=1
 
 # tmuxinator
 export EDITOR='vim'
+export VISUAL='vim'
 
 # short cmd to call nosetests --with-coverage and filter Third-party Librarie
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
@@ -30,6 +33,9 @@ alias clear=" clear"
 
 # Docker: remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
 alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
+
+# Hub - Github wrapper CLI
+eval "$(hub alias -s)"
 
 # less color manpages
 # http://www.cyberciti.biz/faq/linux-unix-colored-man-pages-with-less-command/
@@ -68,5 +74,9 @@ then
   alias st="open -a Sublime\ Text\ 2"
 
   # load docker-machine env
-  eval $(docker-machine env docker-vm)
+  dvm="docker-vm"
+  alias dstart="docker-machine start $dvm"
+  alias drestart="docker-machine restart $dvm"
+  alias dstop="docker-machine stop $dvm"
+  alias denv="eval \`docker-machine env $dvm\`"
 fi
