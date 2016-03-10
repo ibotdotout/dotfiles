@@ -1,4 +1,15 @@
+[push]
+	default = matching
 [alias]
-  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  trig-jenkins = !curl http://yourjenkinsservergit/notifyCommit?url=$(git remote -v | grep -m 1 -oh "git@.*git")
-  push-wt = !git push && git trig-jenkins
+  	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  	lg = log --oneline --decorate --all --graph
+	s = status -s
+[core]
+	autocrlf = false
+	safecrlf = true
+[color]
+	ui = auto
+[merge]
+	tool = vimdiff
+	tool = prompt
+	conflictstyle = diff3
