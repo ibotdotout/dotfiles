@@ -73,7 +73,7 @@ nnoremap 0 g0
 "noremap <C-l> <C-w>l
 
 "Mute Highlighting
-" nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
 
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
