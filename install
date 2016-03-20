@@ -1,0 +1,38 @@
+#!/bin/bash
+
+VIMPLUG_PATH="$HOME/.vim/autoload/plug.vim"
+
+PREZTO_PATH="$HOME/.zprezto"
+
+# Install Homebrew & Cask
+if [ ! hash git 2>/dev/null ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    echo "HomeBrew is already installed!"
+fi
+
+brew tap caskroom/cask
+brew tap Homebrew/bundle
+brew bundle
+
+# Install prezto
+if [ ! -d "$PREZTO_PATH" ]; then
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+else
+    echo "ZSH Prezto is already installed!"
+    cd $PREZTO_PATH && git pull && git submodule update --init --recursive
+    cd -
+fi
+
+# Link dotfiles
+./dotup
+
+
+# Install Vim-plug
+if [ ! -f "$VIMPLUG_PATH" ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+else
+    echo "Vim Plug is already installed!"
+fi
+
+vim +PlugInstall +qall

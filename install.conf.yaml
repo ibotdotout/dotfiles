@@ -1,0 +1,24 @@
+- defaults:
+    link:
+        relink: true
+
+- clean: ['~']
+
+- link:
+    # Vim Configuration
+    ~/.vimrc: vim/.vimrc
+    ~/.vimrc.local: vim/.vimrc.local
+
+    # TMUX Configuration
+    ~/.tmux.conf: tmux/.tmux.conf
+
+    # Git Configuration
+    ~/.gitconfig: git/.gitconfig
+
+    # Prezto Zsh Configuration
+    ~/.zshrc: prezto/.zshrc
+    ~/.zshrc.local: prezto/.zshrc.local
+    ~/.zpreztorc: prezto/.zpreztorc
+
+- shell:
+      - [git submodule update --init --recursive, Installing submodules]

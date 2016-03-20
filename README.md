@@ -1,6 +1,15 @@
 OSX Dev Developement
 =======
 
+# Automate
+
+* Run all setup by install script
+
+```sh
+$ ./install
+```
+
+# Manual
 ### Homebrew by Brewfile
 1. Install `brew`
 
@@ -11,7 +20,7 @@ OSX Dev Developement
 2. Install `brew cask`
 
     ```sh
-    brew tap caskroom/cask
+    $ brew tap caskroom/cask
     ```
 
 3. Install `brew bundle`
@@ -26,6 +35,14 @@ OSX Dev Developement
     $ brew bundle
     ```
 
+### Link dotfile by [dotbot](https://github.com/anishathalye/dotbot/)
+
+1. Link `dotfiles`
+
+    ```sh
+    $ ./dotup
+    ```
+
 ### Vim by [vim-plug](https://github.com/junegunn/vim-plug)
 
 1. Install `vim-plug`
@@ -37,12 +54,13 @@ OSX Dev Developement
 2. Install vim plugin via `vim-plug` from `.vimrc`
 
     ```sh
-    $ vim -c 'PlugInstall| q! | q!'
+    $ vim +PlugInstall +qall
     ```
 
 ### References
-* [Homebrew - The missing package manager for OS X](http://brew.sh)
-* [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
-* [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
-* [Brew Bundle](https://github.com/Homebrew/homebrew-bundle)
-* [vim-plug - A minimalist Vim plugin manager.](https://github.com/junegunn/vim-plug)
+    * [Homebrew - The missing package manager for OS X](http://brew.sh)
+    * [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
+    * [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
+    * [Brew Bundle](https://github.com/Homebrew/homebrew-bundle)
+    * [vim-plug - A minimalist Vim plugin manager.](https://github.com/junegunn/vim-plug)
+    * [mildronize/dotfiles](https://github.com/mildronize/dotfiles#quick-setup)
