@@ -66,6 +66,10 @@ then
   # Open Google Chrome
   alias chrome="open -a /Applications/Google\ Chrome.app"
 
+  # fasd
+  eval "$(fasd --init posix-alias zsh-hook)"
+  alias v='f -e vim' # quick opening files with vim
+
   # Show Hidden in Finder OSX
   alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
   alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
@@ -78,5 +82,7 @@ then
   alias dstart="docker-machine start $dvm"
   alias drestart="docker-machine restart $dvm"
   alias dstop="docker-machine stop $dvm"
+  alias dc="docker-compose"
   alias denv="eval \`docker-machine env $dvm\`"
+
 fi
