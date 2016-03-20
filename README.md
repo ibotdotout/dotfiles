@@ -1,7 +1,14 @@
 OSX Dev Developement
 =======
 
-# Automate
+Fist `clone` and `cd` to dotfiles
+
+```sh
+$ git clone git@github.com:ibotdotout/dotfiles.git .dotfiles
+$ cd .dotfiles
+```
+
+# Automate Install packages & Link all dotfiles
 
 * Run all setup by install script
 
@@ -10,7 +17,7 @@ $ ./install
 ```
 
 # Manual
-### Homebrew by Brewfile
+### Install packages & app via Homebrew by Brewfile
 1. Install `brew`
 
     ```sh
@@ -29,13 +36,13 @@ $ ./install
     $ brew tap Homebrew/bundle
     ```
 
-4. Restore from `Brewfile`
+4. Install all packages & app from `Brewfile`
 
     ```sh
     $ brew bundle
     ```
 
-### Link dotfile by [dotbot](https://github.com/anishathalye/dotbot/)
+### Link dotfiles by [dotbot](https://github.com/anishathalye/dotbot/)
 
 1. Link `dotfiles`
 
@@ -43,7 +50,7 @@ $ ./install
     $ ./dotup
     ```
 
-### Vim by [vim-plug](https://github.com/junegunn/vim-plug)
+### Install Vim plugins by [vim-plug](https://github.com/junegunn/vim-plug)
 
 1. Install `vim-plug`
 
@@ -58,9 +65,9 @@ $ ./install
     ```
 
 ### References
-    * [Homebrew - The missing package manager for OS X](http://brew.sh)
-    * [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
-    * [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
-    * [Brew Bundle](https://github.com/Homebrew/homebrew-bundle)
-    * [vim-plug - A minimalist Vim plugin manager.](https://github.com/junegunn/vim-plug)
-    * [mildronize/dotfiles](https://github.com/mildronize/dotfiles#quick-setup)
+* [Homebrew - The missing package manager for OS X](http://brew.sh)
+* [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
+* [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
+* [Brew Bundle](https://github.com/Homebrew/homebrew-bundle)
+* [vim-plug - A minimalist Vim plugin manager.](https://github.com/junegunn/vim-plug)
+* [mildronize/dotfiles](https://github.com/mildronize/dotfiles#quick-setup)
