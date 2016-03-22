@@ -24,7 +24,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " Vim Theme
-Plug 'noahfrederick/vim-hemisu'
+Plug 'tomasr/molokai'
 Plug 'edkolev/tmuxline.vim'
 
 call plug#end()
@@ -64,11 +64,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " set theme
-if filereadable(expand("~/.vim/plugged/vim-hemisu"))
-  syntax enable
-  set background=dark
-  colorscheme hemisu
-  let g:solarized_termcolors=256
+if filereadable(expand("~/.vim/plugged/molokai"))
+  colorscheme molokai
 endif
 
 
