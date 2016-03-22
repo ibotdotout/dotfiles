@@ -17,6 +17,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ibotdotout/vimrc-custom'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-unimpaired'
+Plug 'Yggdroot/indentLine'
 
 "Syntax Highligh
 Plug 'ekalinin/Dockerfile.vim'
@@ -63,11 +64,15 @@ set statusline+=%*
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" set indentLine
+let g:indentLine_enabled = 1
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '.'
+
 " set theme
 if filereadable(expand("~/.vim/plugged/molokai"))
   colorscheme molokai
 endif
-
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))

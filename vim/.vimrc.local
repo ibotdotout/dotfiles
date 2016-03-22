@@ -4,8 +4,11 @@ set nocompatible
 " disable folding
 set nofoldenable
 
+" disblae auto comment
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+
 " support screen-256color
-set t_Co=256
+set t_Cm=256
 
 set wildmenu
 
@@ -23,7 +26,6 @@ set noswapfile
 
 " show a visual line under the cursor's current line.
 set cursorline
-
 
 "About Search
 set incsearch
