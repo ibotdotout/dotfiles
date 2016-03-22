@@ -12,6 +12,12 @@ set t_Cm=256
 
 set wildmenu
 
+" set tab char
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set textwidth=79
+
 " yank to clipboard
 " set clipboard=unnamed
 
@@ -82,7 +88,7 @@ nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
 
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
-au FileType liquid set spell spelllang=en_us
+au FileType makrdown set spell spelllang=en_us
 
 " set for NodeJs
 au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
