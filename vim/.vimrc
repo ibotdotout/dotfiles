@@ -80,7 +80,7 @@ let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '.'
 
 " set theme
-if filereadable(expand("~/.vim/plugged/molokai"))
+if filereadable(expand("~/.vim/plugged/molokai/colors/molokai.vim"))
   colorscheme molokai
 endif
 
