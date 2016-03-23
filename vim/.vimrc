@@ -24,7 +24,6 @@ Plug 'airblade/vim-gitgutter'
 " Syntax Highligh
 Plug 'scrooloose/syntastic', { 'for': ['javascript', 'python', 'ruby', 'markdown', 'sh'] }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'godlygeek/tabular'
 
 " Vim Theme Plugin
