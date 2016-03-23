@@ -2,31 +2,38 @@ call plug#begin('~/.vim/plugged')
 
 " Vim Plugin
 Plug 'zhaocai/GoldenView.Vim'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'scrooloose/nerdtree'
 Plug 'justinmk/vim-sneak'
-Plug 'vim-scripts/ZoomWin'
-Plug 'majutsushi/tagbar'
-Plug 'ervandew/supertab'
-Plug 'kien/ctrlp.vim'
-Plug 'ddollar/nerdcommenter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 Plug 'ibotdotout/vimrc-custom'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-unimpaired'
 Plug 'Yggdroot/indentLine'
 
-"Syntax Highligh
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'vim-scripts/ZoomWin', { 'on': 'ZoomWin' }
+Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPTag'] }
 
-" Vim Theme
-Plug 'tomasr/molokai'
+" Coding
+Plug 'majutsushi/tagbar'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-unimpaired'
+Plug 'ddollar/nerdcommenter'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Syntax Highligh
+Plug 'scrooloose/syntastic', { 'for': ['javascript', 'python', 'ruby', 'markdown', 'sh'] }
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'godlygeek/tabular'
+
+" Vim Theme Plugin
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
+"
+" Theme
+Plug 'tomasr/molokai'
 
 call plug#end()
 
@@ -35,6 +42,9 @@ let mapleader = " "
 
 " remao NERDTree
 map <leader>n  :NERDTreeToggle<CR>
+
+" zoomwin
+nnoremap <leader>zw :ZoomWin<CR>
 
 " remap Tagbar
 nnoremap <leader>[ :TagbarToggle<CR>
