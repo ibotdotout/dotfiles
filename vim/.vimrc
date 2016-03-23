@@ -5,6 +5,7 @@ Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
 Plug 'ibotdotout/vimrc-custom'
 Plug 'Yggdroot/indentLine'
+Plug 'matze/vim-move'
 
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -82,6 +83,9 @@ let g:indentLine_leadingSpaceChar = '.'
 if filereadable(expand("~/.vim/plugged/molokai"))
   colorscheme molokai
 endif
+
+" vim-move - move line up/down
+let g:move_key_modifier = 'C'
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))
