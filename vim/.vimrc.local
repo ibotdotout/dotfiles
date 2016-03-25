@@ -57,6 +57,9 @@ set encoding=utf8
 "inoremap jk <ESC>
 "inoremap kj <ESC>
 
+" Map default cancel to ESC
+inoremap <C-c> <ESC>
+
 "Disable arrow key
 inoremap <Up> <NOP>
 inoremap <Down> <NOP>
