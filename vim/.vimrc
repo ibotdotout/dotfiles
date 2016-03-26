@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+" colemak
+Plug 'vim-scripts/colqer'
+
 " Vim Plugin
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
@@ -86,6 +89,9 @@ endif
 
 " vim-move - move line up/down
 let g:move_key_modifier = 'C'
+
+" auto enable colemak in insert mode
+autocmd VimEnter * call IMapColemakSwitch()
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))

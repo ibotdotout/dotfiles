@@ -52,10 +52,8 @@ set smarttab
 
 "Use UTF-8.
 set encoding=utf8
-
-"Mapp jk to <ESC>
-"inoremap jk <ESC>
-"inoremap kj <ESC>
+" set auto read
+set autoread
 
 " Map default cancel to ESC
 inoremap <C-c> <ESC>
@@ -81,10 +79,13 @@ nnoremap ^ g^
 nnoremap 0 g0
 
 "move between windows
-"noremap <C-h> <C-w>h
-"noremap <C-j> <C-w>j
-"noremap <C-k> <C-w>k
-"noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" set paste toggle
+set pastetoggle=<F4>
 
 "Mute Highlighting
 nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
@@ -98,23 +99,3 @@ au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-
-" run autoPEP8
-set autoread
-au BufWritePost *.py silent call AutoPEP8()
-" nnoremap <leader>pp :call AutoPEP8()<CR>
-function AutoPEP8()
-    silent execute '!autopep8 --in-place --aggressive --aggressive '.expand("%")
-endfunction
-
-" nose pdb function
-nnoremap <leader>dd :call NosePdb()<CR><CR>
-function NosePdb()
-  normal ofrom nose.tools import set_trace; set_trace()
-endfunction
-
-" python pdb function
-nnoremap <leader>db :call PythonPdb()<CR><CR>
-function PythonPdb()
-  normal oimport pdb; pdb.set_trace()
-endfunction
