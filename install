@@ -1,8 +1,8 @@
 #!/bin/bash
 
 VIMPLUG_PATH="$HOME/.vim/autoload/plug.vim"
-
 PREZTO_PATH="$HOME/.zprezto"
+TPM_PATH="$HOME/.tmux/plugins/tpm"
 
 # Install Homebrew & Cask
 if [ ! hash git 2>/dev/null ]; then
@@ -17,7 +17,7 @@ brew bundle
 
 # Install prezto
 if [ ! -d "$PREZTO_PATH" ]; then
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git $PREZTO_PATH
 else
     echo "ZSH Prezto is already installed!"
     cd $PREZTO_PATH && git pull && git submodule update --init --recursive
@@ -30,9 +30,16 @@ fi
 
 # Install Vim-plug
 if [ ! -f "$VIMPLUG_PATH" ]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo $VIMPLUG_PATH --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 else
     echo "Vim Plug is already installed!"
 fi
-
 vim +PlugInstall +qall
+
+# Install Tmux TPM
+if [ ! -d "$TPM_PATH" ]; then
+	git clone https://github.com/tmux-plugins/tpm $TPM_PATH
+	$TPM_PATH/bin/install_plugins
+else
+    echo "Tmux TPM is already installed!"
+fi
