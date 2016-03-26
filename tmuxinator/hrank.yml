@@ -1,0 +1,11 @@
+# ~/.tmuxinator/hrank.yml
+
+name: hrank
+root: ~/develop/myHackerRank
+
+windows:
+  - editor:
+      layout: b033,181x36,0,0[181x23,0,0,1,181x12,0,24,2]
+      panes:
+        - 
+        - ./watchdog_python.py

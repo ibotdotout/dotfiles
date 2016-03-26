@@ -43,3 +43,6 @@ if [ ! -d "$TPM_PATH" ]; then
 else
     echo "Tmux TPM is already installed!"
 fi
+
+# Install tmuxitor
+gem install tmuxinator
