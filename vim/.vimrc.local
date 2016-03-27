@@ -85,7 +85,7 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " set paste toggle
-set pastetoggle=<leader>v
+set pastetoggle=<F3>
 
 "Mute Highlighting
 nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
