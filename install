@@ -4,16 +4,22 @@ VIMPLUG_PATH="$HOME/.vim/autoload/plug.vim"
 PREZTO_PATH="$HOME/.zprezto"
 TPM_PATH="$HOME/.tmux/plugins/tpm"
 
-# Install Homebrew & Cask
-if [ ! hash git 2>/dev/null ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else
-    echo "HomeBrew is already installed!"
-fi
+if [[ `uname` == 'Darwin' ]]
+then
+	# Install Homebrew & Cask
+	if [ ! hash git 2>/dev/null ]; then
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	else
+		echo "HomeBrew is already installed!"
+	fi
 
-brew tap caskroom/cask
-brew tap Homebrew/bundle
-brew bundle
+	brew tap caskroom/cask
+	brew tap Homebrew/bundle
+	brew bundle
+else
+	echo "brew not supports Linux, your need manual install dependentcies."
+	echo "your install git, vim, tmux, zsh for the rest."
+fi
 
 # Install prezto
 if [ ! -d "$PREZTO_PATH" ]; then
