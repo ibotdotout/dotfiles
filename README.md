@@ -64,6 +64,20 @@ $ ./install
     $ vim +PlugInstall +qall
     ```
 
+### Install Tmux plugins by [TPM](https://github.com/tmux-plugins/tpm)
+
+1. Install `tpm`
+
+	```sh
+	$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	```
+
+2. Install tmux plugin via from `.tmux.conf`
+
+	```sh
+	$ ~/.tmux/plugins/tpm/bin/install_plugins
+	```
+
 ### References
 * [Homebrew - The missing package manager for OS X](http://brew.sh)
 * [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
