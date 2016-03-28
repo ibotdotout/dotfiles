@@ -1,0 +1,37 @@
+############################### Colemak #################################
+unbind-key s
+bind-key s detach-client
+unbind-key k
+bind-key k next-window
+unbind-key \;
+bind-key \; previous-window
+unbind-key r
+bind-key r list-sessions
+
+# Map window navigation to vim key
+unbind-key n
+bind-key n select-pane -D
+unbind-key e
+bind-key e select-pane -U
+unbind-key h
+bind-key h select-pane -L
+unbind-key i
+bind-key i select-pane -R
+
+unbind -t vi-choice n
+bind-key -t vi-choice n down
+unbind -t vi-choice e
+bind-key -t vi-choice e up
+
+unbind -t vi-copy k
+bind-key -t vi-copy k search-again
+unbind -t vi-copy K
+bind-key -t vi-copy K search-reverse
+unbind -t vi-copy n
+bind-key -t vi-copy n cursor-down
+unbind -t vi-copy e
+bind-key -t vi-copy e cursor-up
+unbind -t vi-copy i
+bind-key -t vi-copy i cursor-right
+unbind -t vi-copy j
+bind-key -t vi-copy j copy-pipe "reattach-to-user-namespace pbcopy"
