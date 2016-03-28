@@ -1,0 +1,12 @@
+# colemak, bind emac key like qwerty
+
+stty eof '^s'
+bindkey '^k' down-line-or-history
+bindkey '^y' up-line-or-history
+bindkey '^t' forward-char
+bindkey '\et' forward-word
+bindkey '^f' end-of-line
+bindkey '^l' kill-whole-line
+bindkey '^e' kill-line
+bindkey '^p' history-incremental-search-backward
+bindkey '^r' history-incremental-search-forward
