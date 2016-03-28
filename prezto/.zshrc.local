@@ -55,6 +55,19 @@ man() {
     man "$@"
 }
 
+# colemak
+stty eof '^s'
+bindkey '^k' down-line-or-history
+bindkey '^;' up-line-or-history
+bindkey '^t' forward-char
+bindkey '\et' forward-word
+bindkey '^f' end-of-line
+bindkey '^l' kill-whole-line
+bindkey '^e' kill-line
+bindkey '^i' clear-screen
+bindkey '^p' history-incremental-search-backward
+bindkey '^r' history-incremental-search-forward
+
 #For Linux
 if [[ `uname` == 'Linux' ]]
 then
@@ -83,4 +96,6 @@ then
 
   # shorter docker-compose
   alias dc="docker-compose"
+
+  alias kpcli="/Users/botbotbot/Dropbox/kp/kpcli-3.0.pl -kdb='/Users/botbotbot/Dropbox/kp/mydb.kdbx'"
 fi
