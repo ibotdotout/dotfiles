@@ -6,6 +6,10 @@ export TMPDIR="/private/tmp"
 # ask before rm with star (*)
 unsetopt RM_STAR_SILENT
 
+# not share history between panes/windows in tmux with zsh
+setopt noincappendhistory
+setopt nosharehistory
+
 # suport thai in terminal
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -84,5 +88,4 @@ then
   alias dstop="docker-machine stop $dvm"
   alias dc="docker-compose"
   alias denv="eval \`docker-machine env $dvm\`"
-
 fi
