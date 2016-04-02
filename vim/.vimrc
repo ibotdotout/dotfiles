@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 " colemak
-Plug 'vim-scripts/colqer'
+Plug 'ibotdotout/colqer'
 
 " Vim Plugin
 Plug 'zhaocai/GoldenView.Vim'
@@ -90,11 +90,48 @@ if filereadable(expand("~/.vim/plugged/molokai/colors/molokai.vim"))
   colorscheme molokai
 endif
 
+" auto enable colemak in insert mode
+autocmd VimEnter * call CMapQwertySwitch()
+autocmd VimEnter * call RemapSneak()
+
+"change <Leader> / to space
+let mapleader = " "
+
+" remao NERDTree
+nnoremap <leader>w  :NERDTreeToggle<CR>
+
+" zoomwin
+nnoremap <leader>zw :ZoomWin<CR>
+
+" remap Tagbar
+nnoremap <leader>[ :TagbarToggle<CR>
+nnoremap <leader>] :TagbarOpen fj<CR>
+
+" remap NERDComToggleComment
+nmap <leader>/ <leader>c<Space>
+vmap <leader>/ <leader>c<Space>
+
+" remap CtrlP to avoid GoldenView.View
+let g:ctrlp_map = '<leader>p'
+nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>. :CtrlPTag<cr>
+
 " vim-move - move line up/down
 let g:move_key_modifier = 'C'
 
-" auto enable colemak in insert mode
-autocmd VimEnter * call IMapColemakSwitch()
+" remap sneak.vim
+function! RemapSneak()
+    " should reload after auto enter vim
+	nmap r <Plug>Sneak_s
+	nmap R <Plug>Sneak_S
+	xmap r <Plug>Sneak_s
+	xmap R <Plug>Sneak_S
+
+	nmap o <Plug>SneakNext
+	xmap o <Plug>SneakNext
+	nmap , <Plug>SneakPrevious
+	xmap , <Plug>SneakPrevious
+endfunction
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))
