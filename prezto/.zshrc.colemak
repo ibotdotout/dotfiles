@@ -1,12 +1,16 @@
 # colemak, bind emac key like qwerty
 
-stty eof '^s'
-bindkey '^k' down-line-or-history
-bindkey '^y' up-line-or-history
-bindkey '^t' forward-char
-bindkey '\et' forward-word
-bindkey '^f' end-of-line
-bindkey '^l' kill-whole-line
-bindkey '^e' kill-line
-bindkey '^p' history-incremental-search-backward
-bindkey '^r' history-incremental-search-forward
+# ctrl+i is tab cant use
+# ctrl+; is non define cant use
+
+stty eof '^s' #ctrl+d
+bindkey '^k' down-line-or-history #ctrl+n
+bindkey '^n' up-line-or-history #ctrl+p
+bindkey '^t' forward-char #char+f
+bindkey '\et' forward-word #alt+f
+bindkey '^f' end-of-line #ctrl+e
+bindkey '^l' kill-whole-line #ctrl+u
+bindkey '^e' kill-line #ctrl+k
+bindkey '^p' history-incremental-search-backward #ctrl+r
+bindkey '^r' history-incremental-search-forward #ctrl+s
+bindkey '^o' clear-screen #ctrl+l
