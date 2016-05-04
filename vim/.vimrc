@@ -59,6 +59,7 @@ vmap <leader>/ <leader>c<Space>
 
 " remap CtrlP to avoid GoldenView.View
 let g:ctrlp_map = '<leader>p'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
