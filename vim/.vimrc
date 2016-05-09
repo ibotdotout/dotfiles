@@ -26,9 +26,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Syntax Highligh
-Plug 'scrooloose/syntastic', { 'for': ['javascript', 'python', 'ruby', 'markdown', 'sh'] }
+Plug 'scrooloose/syntastic', { 'for': ['typescript', 'javascript', 'python', 'ruby', 'markdown', 'sh'] }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Vim Theme Plugin
 Plug 'vim-airline/vim-airline'
