@@ -80,12 +80,4 @@ then
 
   # open in sublime
   alias st="open -a Sublime\ Text\ 2"
-
-  # load docker-machine env
-  dvm="docker-vm"
-  alias dstart="docker-machine start $dvm"
-  alias drestart="docker-machine restart $dvm"
-  alias dstop="docker-machine stop $dvm"
-  alias dc="docker-compose"
-  alias denv="eval \`docker-machine env $dvm\`"
 fi
