@@ -80,4 +80,7 @@ then
 
   # open in sublime
   alias st="open -a Sublime\ Text\ 2"
+
+  # shorter docker-compose
+  alias dc="docker-compose"
 fi
