@@ -82,8 +82,8 @@ let g:syntastic_always_populate_loc_list = 1
 
 " set indentLine
 let g:indentLine_enabled = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_leadingSpaceChar = '.'
+" let g:indentLine_leadingSpaceEnabled = 1
+" let g:indentLine_leadingSpaceChar = '.'
 
 " set theme
 if filereadable(expand("~/.vim/plugged/molokai/colors/molokai.vim"))
