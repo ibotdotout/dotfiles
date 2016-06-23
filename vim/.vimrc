@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 " colemak
-Plug 'vim-scripts/colqer'
+" Plug 'vim-scripts/colqer'
 
 " Vim Plugin
 Plug 'zhaocai/GoldenView.Vim'
@@ -94,7 +94,7 @@ endif
 let g:move_key_modifier = 'C'
 
 " auto enable colemak in insert mode
-autocmd VimEnter * call IMapColemakSwitch()
+" autocmd VimEnter * call IMapColemakSwitch()
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))
