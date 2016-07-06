@@ -90,6 +90,9 @@ set pastetoggle=<F3>
 "Mute Highlighting
 nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
 
+"Tab to Space
+command CleanSpace :set expandtab | retab | FixWhitespace
+
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
 au FileType makrdown set spell spelllang=en_us

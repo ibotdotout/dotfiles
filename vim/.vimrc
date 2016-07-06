@@ -30,6 +30,7 @@ Plug 'scrooloose/syntastic', { 'for': ['typescript', 'javascript', 'python', 'ru
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'kylef/apiblueprint.vim'
 
 " Vim Theme Plugin
 Plug 'vim-airline/vim-airline'
