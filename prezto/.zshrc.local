@@ -83,4 +83,6 @@ then
 
   # shorter docker-compose
   alias dc="docker-compose"
+
+  alias kpcli="/Users/botbotbot/Dropbox/kp/kpcli-3.0.pl -kdb='/Users/botbotbot/Dropbox/kp/mydb.kdbx'"
 fi
