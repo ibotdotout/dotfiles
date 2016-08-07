@@ -1,15 +1,21 @@
 [push]
-	default = matching
+    default = simple
 [alias]
-  	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  	lg = log --oneline --decorate --all --graph
-	s = status -s
+    llg = log --pretty=format:'%C(yellow)%h %C(red)%d %C(white)%s %C(dim white)<%an>%C(reset) %C(blue)(%ad)' --all --graph --decorate --date=relative
+    lg = log --oneline --decorate --all --graph
+    s = status -s
+    co = checkout
+    diffs = diff --staged
 [core]
-	autocrlf = false
-	safecrlf = true
+    autocrlf = false
+    safecrlf = true
 [color]
-	ui = auto
+    ui = auto
 [merge]
-	tool = vimdiff
-	tool = prompt
-	conflictstyle = diff3
+    tool = vimdiff
+    tool = prompt
+    conflictstyle = diff3
+[core]
+    autocrlf = false
+    safecrlf = true
+    excludesfile = ~/.gitignore_global
