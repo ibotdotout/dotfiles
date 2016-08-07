@@ -56,7 +56,7 @@ set encoding=utf8
 set autoread
 
 " Map default cancel to ESC
-inoremap <C-c> <ESC>
+" inoremap <C-c> <ESC>
 
 "Disable arrow key
 inoremap <Up> <NOP>

@@ -4,11 +4,13 @@ call plug#begin('~/.vim/plugged')
 " Plug 'vim-scripts/colqer'
 
 " Vim Plugin
+Plug 'tpope/vim-sensible'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
 Plug 'ibotdotout/vimrc-custom'
 Plug 'Yggdroot/indentLine'
 Plug 'matze/vim-move'
+Plug 'mileszs/ack.vim'
 
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -96,6 +98,12 @@ let g:move_key_modifier = 'C'
 
 " auto enable colemak in insert mode
 " autocmd VimEnter * call IMapColemakSwitch()
+
+" set ag for ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case'
+endif
+cnoreabbrev Ack Ack!
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))
