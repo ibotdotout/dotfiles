@@ -40,7 +40,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 "
 " Theme
-Plug 'tomasr/molokai'
+Plug 'lloeki/vim-one-colorschemes'
+
 
 call plug#end()
 
@@ -68,7 +69,7 @@ nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
 " enable powerline font
-let g:airline_theme = 'dark'
+let g:airline_theme = 'sol'
 let g:tmuxline_theme = 'airline'
 let g:promptline_theme = 'airline'
 " Fix vim-airline not appear unitl create new split
@@ -89,8 +90,8 @@ let g:indentLine_enabled = 1
 " let g:indentLine_leadingSpaceChar = '.'
 
 " set theme
-if filereadable(expand("~/.vim/plugged/molokai/colors/molokai.vim"))
-  colorscheme molokai
+if filereadable(expand("~/.vim/plugged/vim-one-colorschemes/colors/one-light.vim"))
+  colorscheme one-light
 endif
 
 " vim-move - move line up/down
