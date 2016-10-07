@@ -1,7 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-" colemak
-" Plug 'vim-scripts/colqer'
+""""""""""""""""""""  Plugin
 
 " Vim Plugin
 Plug 'tpope/vim-sensible'
@@ -42,8 +41,10 @@ Plug 'edkolev/tmuxline.vim'
 " Theme
 Plug 'lloeki/vim-one-colorschemes'
 
-
 call plug#end()
+
+
+"""""""""""""""""""" Plugin Config
 
 "change <Leader> / to space
 let mapleader = " "
@@ -68,7 +69,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
-" enable powerline font
+" enable airline theme
 let g:airline_theme = 'sol'
 let g:tmuxline_theme = 'airline'
 let g:promptline_theme = 'airline'
@@ -96,9 +97,6 @@ endif
 
 " vim-move - move line up/down
 let g:move_key_modifier = 'C'
-
-" auto enable colemak in insert mode
-" autocmd VimEnter * call IMapColemakSwitch()
 
 " set ag for ack.vim
 if executable('ag')

@@ -52,11 +52,12 @@ set smarttab
 
 "Use UTF-8.
 set encoding=utf8
+
 " set auto read
 set autoread
 
 " Map default cancel to ESC
-" inoremap <C-c> <ESC>
+inoremap <C-c> <ESC>
 
 "Disable arrow key
 inoremap <Up> <NOP>

@@ -1,7 +1,7 @@
+export TMPDIR="/private/tmp"
+
 # prevents overwriting an existing file.
 setopt noclobber
-
-export TMPDIR="/private/tmp"
 
 # ask before rm with star (*)
 unsetopt RM_STAR_SILENT
@@ -19,30 +19,11 @@ export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 
-# enalbe nosetests color by rednose
-export NOSE_REDNOSE=1
-
-# tmuxinator
+# git & tmuxinator editor
 export EDITOR='vim'
 export VISUAL='vim'
 
-# short cmd to call nosetests --with-coverage and filter Third-party Librarie
-alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
-
-# short pdflatex with output in folder
-# alias pdflatex="pdflatex -output-directory=output"
-
-# use clear without keep it in history
-alias clear=" clear"
-
-# Docker: remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
-alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
-
-# Hub - Github wrapper CLI
-eval "$(hub alias -s)"
-
-# less color manpages
-# http://www.cyberciti.biz/faq/linux-unix-colored-man-pages-with-less-command/
+# Less color manpages - http://www.cyberciti.biz/faq/linux-unix-colored-man-pages-with-less-command/
 man() {
   env \
     LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -54,6 +35,20 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
     man "$@"
 }
+
+# Hub - Github wrapper CLI
+eval "$(hub alias -s)"
+
+# Pythoh - enalbe nosetests color by rednose
+export NOSE_REDNOSE=1
+
+###### Alias ######
+
+# Python - short cmd to call nosetests --with-coverage and filter Third-party Librarie
+alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
+
+# Docker - remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
+alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
 
 #For Linux
 if [[ `uname` == 'Linux' ]]
