@@ -6,21 +6,20 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
-Plug 'ibotdotout/vimrc-custom'
-Plug 'Yggdroot/indentLine'
 Plug 'matze/vim-move'
 Plug 'mileszs/ack.vim'
-
-Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/ZoomWin', { 'on': 'ZoomWin' }
 Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPTag'] }
 
 " Coding
+Plug 'Yggdroot/indentLine'
 Plug 'majutsushi/tagbar'
-Plug 'ervandew/supertab'
 Plug 'tpope/vim-unimpaired'
 Plug 'ddollar/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'ibotdotout/vimrc-custom'
+Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -29,9 +28,7 @@ Plug 'airblade/vim-gitgutter'
 " Syntax Highligh
 Plug 'scrooloose/syntastic', { 'for': ['typescript', 'javascript', 'python', 'ruby', 'markdown', 'sh'] }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'godlygeek/tabular'
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'kylef/apiblueprint.vim'
+Plug 'elzr/vim-json'
 
 " Vim Theme Plugin
 Plug 'vim-airline/vim-airline'
@@ -49,7 +46,7 @@ call plug#end()
 "change <Leader> / to space
 let mapleader = " "
 
-" remao NERDTree
+" remap NERDTree
 map <leader>n  :NERDTreeToggle<CR>
 
 " zoomwin
@@ -60,25 +57,13 @@ nnoremap <leader>[ :TagbarToggle<CR>
 nnoremap <leader>] :TagbarOpen fj<CR>
 
 " remap NERDComToggleComment
-nmap <leader>/ <leader>c<Space>
-vmap <leader>/ <leader>c<Space>
+map <leader>/ <leader>c<Space>
 
 " remap CtrlP to avoid GoldenView.View
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
-
-" enable airline theme
-let g:airline_theme = 'sol'
-let g:tmuxline_theme = 'airline'
-let g:promptline_theme = 'airline'
-" Fix vim-airline not appear unitl create new split
-set laststatus=2
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 " syntastic
 let g:syntastic_check_on_open = 1
@@ -87,13 +72,9 @@ let g:syntastic_always_populate_loc_list = 1
 
 " set indentLine
 let g:indentLine_enabled = 1
-" let g:indentLine_leadingSpaceEnabled = 1
-" let g:indentLine_leadingSpaceChar = '.'
 
-" set theme
-if filereadable(expand("~/.vim/plugged/vim-one-colorschemes/colors/one-light.vim"))
-  colorscheme one-light
-endif
+" Fix json syntax file conflicts from indent Line
+let g:vim_json_syntax_conceal = 0
 
 " vim-move - move line up/down
 let g:move_key_modifier = 'C'
@@ -103,6 +84,22 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep --smart-case'
 endif
 cnoreabbrev Ack Ack!
+
+" set theme
+if filereadable(expand("~/.vim/plugged/vim-one-colorschemes/colors/one-light.vim"))
+  colorscheme one-light
+endif
+
+" enable airline theme
+let g:airline_theme = 'sol'
+let g:tmuxline_theme = 'airline'
+let g:promptline_theme = 'airline'
+
+" Fix vim-airline not appear unitl create new split
+set laststatus=2
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " local settings
 if filereadable(expand("~/.vimrc.local"))

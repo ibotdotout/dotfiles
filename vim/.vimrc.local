@@ -18,6 +18,9 @@ set tabstop=4
 set shiftwidth=4
 set textwidth=79
 
+" search in sub directory with :find
+set path+=**
+
 " yank to clipboard
 " set clipboard=unnamed
 
@@ -78,12 +81,6 @@ nnoremap gj j
 nnoremap $ g$
 nnoremap ^ g^
 nnoremap 0 g0
-
-"move between windows
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
 
 " set paste toggle
 set pastetoggle=<F3>
