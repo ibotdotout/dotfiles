@@ -39,16 +39,13 @@ man() {
 # Hub - Github wrapper CLI
 eval "$(hub alias -s)"
 
+# fasd
+eval "$(fasd --init posix-alias zsh-hook)"
+
 # Pythoh - enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
 
 ###### Alias ######
-
-# Python - short cmd to call nosetests --with-coverage and filter Third-party Librarie
-alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
-
-# Docker - remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
-alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
 
 #For Linux
 if [[ `uname` == 'Linux' ]]
@@ -65,19 +62,24 @@ then
   # Open Google Chrome
   alias chrome="open -a /Applications/Google\ Chrome.app"
 
-  # fasd
-  eval "$(fasd --init posix-alias zsh-hook)"
-  alias v='f -e vim' # quick opening files with vim
-
   # Show Hidden in Finder OSX
   alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
   alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
 
   # open in sublime
   alias st="open -a Sublime\ Text\ 2"
-
-  # shorter docker-compose
-  alias dc="docker-compose"
-
-  alias kpcli="kpcli -kdb='/Users/botbotbot/Dropbox/kp/mydb.kdbx'"
 fi
+
+# Python - short cmd to call nosetests --with-coverage and filter Third-party Librarie
+alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
+
+# Docker - remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
+alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
+
+alias v='f -e vim' # quick opening files with vim
+
+# shorter docker-compose
+alias dc="docker-compose"
+
+# kpcli
+alias kpcli="kpcli -kdb='/Users/botbotbot/Dropbox/kp/mydb.kdbx'"
