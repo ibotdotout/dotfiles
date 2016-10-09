@@ -7,8 +7,9 @@ Plug 'tpope/vim-sensible'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
+Plug 'takac/vim-hardtime'
 Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'vim-scripts/ZoomWin', { 'on': 'ZoomWin' }
 Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPTag'] }
 
@@ -59,7 +60,10 @@ nnoremap <leader>] :TagbarOpen fj<CR>
 " remap NERDComToggleComment
 map <leader>/ <leader>c<Space>
 
-" remap CtrlP to avoid GoldenView.View
+" disable GoldenView.vim mapping
+let g:goldenview__enable_default_mapping = 0
+
+" CtrlP
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 nnoremap <leader>p :CtrlP<CR>
@@ -86,9 +90,10 @@ endif
 cnoreabbrev Ack Ack!
 
 " set theme
-if filereadable(expand("~/.vim/plugged/vim-one-colorschemes/colors/one-light.vim"))
+try
   colorscheme one-light
-endif
+catch
+endtry
 
 " enable airline theme
 let g:airline_theme = 'sol'
@@ -101,7 +106,14 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Enable Hardtime
+let g:hardtime_default_on = 1
+
+" sneak.vim
+let g:sneak#streak = 1
+
 " local settings
-if filereadable(expand("~/.vimrc.local"))
+try
   source ~/.vimrc.local
-endif
+catch
+endtry

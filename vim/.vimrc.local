@@ -1,6 +1,10 @@
 " use vim, not vi api
 set nocompatible
 
+" Always splits to the right and below
+set splitright
+set splitbelow
+
 " disable folding
 set nofoldenable
 
