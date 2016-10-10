@@ -75,6 +75,7 @@ alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(
 
 # Docker - remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
 alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
+alias dockercleanimages="docker images | grep '<none>' | awk '{print \$3}' | xargs docker rmi -f"
 
 alias v='f -e vim' # quick opening files with vim
 
