@@ -112,6 +112,9 @@ let g:hardtime_default_on = 1
 " sneak.vim
 let g:sneak#streak = 1
 
+"Tab to Space
+command CleanSpace :set expandtab | retab | FixWhitespace
+
 " local settings
 try
   source ~/.vimrc.local

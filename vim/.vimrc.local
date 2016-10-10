@@ -92,8 +92,10 @@ set pastetoggle=<F3>
 "Mute Highlighting
 nnoremap <silent> <leader>hs :<C-u>nohlsearch<CR><C-l>
 
-"Tab to Space
-command CleanSpace :set expandtab | retab | FixWhitespace
+if has('folding')
+    set foldmethod=indent               " not as cool as syntax, but faster
+    set foldlevelstart=99               " start unfolded
+endif
 
 " set enable spelling check
 au FileType tex set spell spelllang=en_us
