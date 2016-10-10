@@ -103,6 +103,8 @@ au FileType makrdown set spell spelllang=en_us
 
 " set for NodeJs
 au FileType javascript set softtabstop=2 tabstop=2 shiftwidth=2 textwidth=79
+" enable omni complete C-x C-o for JS
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 " set PEP8
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
