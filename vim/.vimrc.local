@@ -6,7 +6,7 @@ set splitright
 set splitbelow
 
 " disable folding
-set nofoldenable
+" set nofoldenable
 
 " disblae auto comment
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
