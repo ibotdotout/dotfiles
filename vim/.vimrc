@@ -83,9 +83,9 @@ let g:vim_json_syntax_conceal = 0
 " vim-move - move line up/down
 let g:move_key_modifier = 'C'
 
-" set ag for ack.vim
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
+" set rg for ack.vim
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep --smart-case'
 endif
 cnoreabbrev Ack Ack!
 
