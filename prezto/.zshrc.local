@@ -78,6 +78,7 @@ alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
 alias dockercleanimages="docker rmi \$(docker images -q -f dangling=true)"
 
 alias v='f -e vim' # quick opening files with vim
+alias vv='sf -e vim'
 
 # shorter docker-compose
 alias dc="docker-compose"
