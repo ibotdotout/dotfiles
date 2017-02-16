@@ -80,8 +80,15 @@ alias dockercleanimages="docker rmi \$(docker images -q -f dangling=true)"
 alias v='f -e vim' # quick opening files with vim
 alias vv='sf -e vim'
 
+alias e='f -e emacs' # quick opening files with emacs
+alias ee='sf -e emacs'
+
 # shorter docker-compose
 alias dc="docker-compose"
 
 # kpcli
 alias kpcli="kpcli -kdb='/Users/botbotbot/Dropbox/kp/mydb.kdbx'"
+
+hl() {
+ rg -N "$*|\$"
+}
