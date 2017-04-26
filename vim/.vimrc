@@ -12,6 +12,7 @@ Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'vim-scripts/ZoomWin', { 'on': 'ZoomWin' }
 Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPTag'] }
+Plug 'chrisbra/NrrwRgn'
 
 " Coding
 Plug 'Yggdroot/indentLine'
