@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " Vim Plugin
 Plug 'tpope/vim-sensible'
-Plug 'zhaocai/GoldenView.Vim'
+" Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
 Plug 'takac/vim-hardtime'
@@ -67,6 +67,8 @@ let g:goldenview__enable_default_mapping = 0
 " CtrlP
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
