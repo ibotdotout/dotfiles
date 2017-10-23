@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " Vim Plugin
 Plug 'tpope/vim-sensible'
-" Plug 'zhaocai/GoldenView.Vim'
+Plug 'zhaocai/GoldenView.Vim'
 Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
 Plug 'takac/vim-hardtime'
@@ -28,7 +28,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Syntax Highligh
-Plug 'scrooloose/syntastic', { 'for': ['typescript', 'javascript', 'python', 'ruby', 'markdown', 'sh'] }
+Plug 'w0rp/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'elzr/vim-json'
 
@@ -72,10 +72,10 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>. :CtrlPTag<cr>
 
-" syntastic
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
+" ALE
+let g:ale_sign_column_always = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {'javascript': ['standard']}
 
 " set indentLine
 let g:indentLine_enabled = 1
