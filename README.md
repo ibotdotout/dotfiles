@@ -24,19 +24,13 @@ $ ./install
     $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     ```
 
-2. Install `brew cask`
-
-    ```sh
-    $ brew tap caskroom/cask
-    ```
-
-3. Install `brew bundle`
+2. Install `brew bundle`
 
     ```sh
     $ brew tap Homebrew/bundle
     ```
 
-4. Install all packages & app from `Brewfile`
+3. Install all packages & app from `Brewfile`
 
     ```sh
     $ brew bundle
@@ -56,7 +50,7 @@ $ ./install
 
     ```sh
     $ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     ```
 2. Install vim plugin via `vim-plug` from `.vimrc`
 
@@ -68,15 +62,15 @@ $ ./install
 
 1. Install `tpm`
 
-	```sh
-	$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	```
+    ```sh
+    $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    ```
 
 2. Install tmux plugin via from `.tmux.conf`
 
-	```sh
-	$ ~/.tmux/plugins/tpm/bin/install_plugins
-	```
+    ```sh
+    $ ~/.tmux/plugins/tpm/bin/install_plugins
+    ```
 
 ### References
 * [Homebrew - The missing package manager for OS X](http://brew.sh)
