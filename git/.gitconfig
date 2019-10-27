@@ -1,7 +1,7 @@
 [push]
     default = simple
 [alias]
-    llg = log --pretty=format:'%C(yellow)%h %C(red)%d %C(white)%s %C(dim white)<%an>%C(reset) %C(blue)(%ad)' --all --graph --decorate --date=relative
+    llg = log --pretty=format:'%C(yellow)%h%C(red)%d %C(black)%s %C(green)<%an>%C(reset) %C(blue)(%ad)' --all --graph --decorate --date=relative
     lg = log --oneline --decorate --all --graph
     s = status -s
     co = checkout
