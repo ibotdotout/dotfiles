@@ -31,6 +31,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'elzr/vim-json'
+Plug 'hashivim/vim-terraform'
 
 " Vim Theme Plugin
 Plug 'vim-airline/vim-airline'
