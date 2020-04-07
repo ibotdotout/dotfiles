@@ -6,6 +6,7 @@
     s = status -s
     co = checkout
     diffs = diff --staged
+    pullr= pull -r --autostash
 [core]
     autocrlf = false
     safecrlf = true
