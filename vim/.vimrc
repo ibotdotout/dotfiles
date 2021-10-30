@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+let g:indentLine_leadingSpaceChar='·'
+let g:indentLine_leadingSpaceEnabled='1'
+
 """"""""""""""""""""  Plugin
 
 " Vim Plugin
@@ -31,7 +34,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'elzr/vim-json'
+Plug 'jvirtanen/vim-hcl', { 'for': 'hcl' }
 Plug 'hashivim/vim-terraform'
+Plug 'leafgarland/typescript-vim'
 
 " Vim Theme Plugin
 Plug 'vim-airline/vim-airline'
