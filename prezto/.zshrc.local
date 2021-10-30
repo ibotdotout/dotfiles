@@ -87,3 +87,30 @@ fpath=(/usr/local/share/zsh/site-functions $fpath)
 # asdf vm via Homebrew
 . /usr/local/opt/asdf/asdf.sh
 
+# rg all
+alias rgl='rg --no-ignore --hidden'
+
+jwt-decode() {
+  jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"
+}
+
+# Hook direnv into your shell.
+eval "$(asdf exec direnv hook zsh)"
+
+loop() {
+    for i in `seq 1 $1`; ${@:2}
+}
+
+# setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)
+
+# setup Tailsman
+export TALISMAN_HOME=$HOME/.talisman/bin
+
+# k8s
+alias k='kubectl'
+alias kctx='kubectx'
+alias kns='kubens'
+
+# aws
+alias awsv='aws-vault exec'
