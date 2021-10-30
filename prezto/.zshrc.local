@@ -29,6 +29,9 @@ eval "$(hub alias -s)"
 # fasd
 eval "$(fasd --init posix-alias zsh-hook)"
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Pythoh - enalbe nosetests color by rednose
 export NOSE_REDNOSE=1
 
