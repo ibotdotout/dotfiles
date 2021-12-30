@@ -28,3 +28,4 @@
 
 - shell:
       - [git submodule update --init --recursive, Installing submodules]
+      - [cat .tool-versions | awk '{print $1}' | xargs -n1 asdf plugin add, Adding asdf plugins]
