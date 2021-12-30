@@ -88,7 +88,7 @@ alias awsume=". awsume"
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 # asdf vm via Homebrew
-. /usr/local/opt/asdf/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
 
 # rg all
 alias rgl='rg --no-ignore --hidden'
