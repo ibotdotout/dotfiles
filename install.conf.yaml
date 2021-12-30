@@ -20,9 +20,6 @@
     ~/.zshrc.local: prezto/.zshrc.local
     ~/.zpreztorc: prezto/.zpreztorc
 
-    # tmuxinator
-    ~/.tmuxinator: tmuxinator
-
     # asdf
     ~/.tool-versions: asdf/.tool-versions
 
