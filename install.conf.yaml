@@ -23,5 +23,8 @@
     # tmuxinator
     ~/.tmuxinator: tmuxinator
 
+    # asdf
+    ~/.tool-versions: asdf/.tool-versions
+
 - shell:
       - [git submodule update --init --recursive, Installing submodules]
