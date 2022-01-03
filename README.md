@@ -34,6 +34,8 @@ $ ./install
 
     ```sh
     $ brew bundle
+	# To install work related packages
+	$ brew bundle --file Brewfile.work
     ```
 
 ### Link dotfiles by [dotbot](https://github.com/anishathalye/dotbot/)
