@@ -41,3 +41,7 @@ else
     echo "Vim Plug is already installed!"
 fi
 vim +PlugInstall +qall
+
+# Install Asdf
+sh asdf/add_plugins.sh
+asdf install
