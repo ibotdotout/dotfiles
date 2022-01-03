@@ -1,0 +1,6 @@
+# https://proinsias.github.io/til/Git-Specify-the-ssh-key-to-use/
+[core]
+	sshCommand = "ssh -i ~/.ssh/id_rsa_example -F /dev/null"
+[user]
+	name = example
+	email = example
