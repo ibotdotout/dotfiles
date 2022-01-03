@@ -1,0 +1,12 @@
+Host github.com
+  HostName github.com
+  User git
+  IdentitiesOnly yes
+
+# Tunnel
+# ssh -i "${temp_key_file}" \
+#     -L ${local_port}:${target_host}:${target_port} \
+#     -N \
+#     -o "ProxyCommand ssh -i ${temp_key_file} {user}@${bastion_public_ip} -W %h:%p" \
+#     -o StrictHostKeyChecking=no \
+#     {user}@${app_server_ip}
