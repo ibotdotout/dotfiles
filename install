@@ -7,7 +7,7 @@ if [[ `uname` == 'Darwin' ]]
 then
     # Install Homebrew & Cask
     if [ ! hash git 2>/dev/null ]; then
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "HomeBrew is already installed!"
     fi
