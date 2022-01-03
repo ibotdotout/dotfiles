@@ -26,5 +26,5 @@
 
 - shell:
       - [git submodule update --init --recursive, Installing submodules]
-      - [cat .tool-versions | awk '{print $1}' | xargs -n1 asdf plugin add, Adding asdf plugins]
+      - [./asdf/add_plugins.sh, Adding asdf plugins]
       - [touch ~/.gitconfig_work ~/.gitconfig_personal, Creating Git profiles]
