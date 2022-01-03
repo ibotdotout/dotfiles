@@ -2,7 +2,6 @@
 
 VIMPLUG_PATH="$HOME/.vim/autoload/plug.vim"
 PREZTO_PATH="$HOME/.zprezto"
-TPM_PATH="$HOME/.tmux/plugins/tpm"
 
 if [[ `uname` == 'Darwin' ]]
 then
@@ -40,11 +39,3 @@ else
     echo "Vim Plug is already installed!"
 fi
 vim +PlugInstall +qall
-
-# Install Tmux TPM
-if [ ! -d "$TPM_PATH" ]; then
-    git clone https://github.com/tmux-plugins/tpm $TPM_PATH
-    $TPM_PATH/bin/install_plugins
-else
-    echo "Tmux TPM is already installed!"
-fi
