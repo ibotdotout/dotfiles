@@ -45,3 +45,6 @@ vim +PlugInstall +qall
 # Install Asdf
 sh asdf/add_plugins.sh
 asdf install
+
+# Install fzf
+$(brew --prefix)/opt/fzf/install

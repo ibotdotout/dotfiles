@@ -58,6 +58,15 @@ $ ./install
     $ vim +PlugInstall +qall
     ```
 
+### Install [fzf](https://github.com/junegunn/fzf) useful key bindings and fuzzy completion
+
+    ```sh
+    brew install fzf
+
+    # To install useful key bindings and fuzzy completion:
+    $(brew --prefix)/opt/fzf/install
+    ```
+
 ### References
 * [Homebrew - The missing package manager for OS X](http://brew.sh)
 * [Homebrew Cask - To install, drag this icon…” no more!](https://caskroom.github.io)
