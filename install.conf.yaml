@@ -26,5 +26,5 @@
 
 - shell:
       - [git submodule update --init --recursive, Installing submodules]
-      - [./asdf/add_plugins.sh, Adding asdf plugins]
+      - [sh asdf/add_plugins.sh, Adding asdf plugins]
       - [touch ~/.gitconfig_work ~/.gitconfig_personal, Creating Git profiles]
