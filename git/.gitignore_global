@@ -2,3 +2,5 @@
 .idea
 dependencies.log
 .DS_Store
+tags
+.talismanrc

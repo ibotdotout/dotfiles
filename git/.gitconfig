@@ -2,11 +2,22 @@
     default = simple
 [alias]
     llg = log --pretty=format:'%C(yellow)%h%C(red)%d %C(black)%s %C(green)<%an>%C(reset) %C(blue)(%ad)' --all --graph --decorate --date=relative
-    lg = log --oneline --decorate --all --graph
+    lg = log --oneline --decorate --graph
     s = status -s
     co = checkout
     diffs = diff --staged
-    pullr= pull -r --autostash
+    pullr = pull -r --autostash
+    pullrm = pull -r --autostash origin main
+    pushr = !bash -c 'git pull -r --autostash && git push'
+    pushu = push -u origin HEAD
+    #fzf-cli
+    sw= !bash -c 'git switch $(git branch --all| sed "s#remotes/origin/##" | sort -u | fzf)'
+    swc= switch -c
+    #glab-cli
+    browse = !bash -c 'glab repo view -w'
+    mr = !bash -c 'glab mr view -w $@'
+    mrc = !bash -c 'glab mr create --fill --web'
+    mrl = !bash -c 'glab mr list'
 [core]
     autocrlf = false
     safecrlf = true
@@ -20,9 +31,14 @@
     autocrlf = false
     safecrlf = true
     excludesfile = ~/.gitignore_global
+; [url "ssh://git@github.com:"]
+;     insteadOf = https://github.com/
 [url "git@github.com:"]
     insteadOf = https://github.com/
-[includeIf "gitdir:~/develop/clients/"]
-	path = ~/.gitconfig_work
 [include]
 	path = ~/.gitconfig_personal
+[includeIf "gitdir:~/go/src/"]
+    path = ~/.gitconfig_github_sign
+[includeIf "gitdir:~/develop/clients/"]
+    path = ~/.gitconfig_work
+# export GIT_SSH_COMMAND="ssh -i ~/.ssh/ed25519 -F /dev/null"
