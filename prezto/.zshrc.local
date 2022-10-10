@@ -23,11 +23,8 @@ export PATH=/usr/local/sbin:$PATH
 export EDITOR='vim'
 export VISUAL='vim'
 
-# Hub - Github wrapper CLI
-eval "$(hub alias -s)"
-
-# fasd
-eval "$(fasd --init posix-alias zsh-hook)"
+# zoxide
+eval "$(zoxide init zsh)"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -56,22 +53,12 @@ then
   alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
   alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
 
-  # open in sublime
-  alias st="open -a Sublime\ Text\ 2"
-fi
-
 # Python - short cmd to call nosetests --with-coverage and filter Third-party Librarie
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
 
 # Docker - remove all Exited containers by Filippo Valsorda - https://coderwall.com/p/zguz_w
 alias dockerclean="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
 alias dockercleanimages="docker rmi \$(docker images -q -f dangling=true)"
-
-alias v='f -e vim' # quick opening files with vim
-alias vv='sf -e vim'
-
-alias e='f -e emacs' # quick opening files with emacs
-alias ee='sf -e emacs'
 
 # shorter docker-compose
 alias dc="docker-compose"
@@ -98,10 +85,41 @@ loop() {
     for i in `seq 1 $1`; ${@:2}
 }
 
+is-cmd-existed() {
+  hash $1 2>/dev/null
+}
+
 # k8s
 alias k='kubectl'
 alias kctx='kubectx'
 alias kns='kubens'
+is-cmd-existed kubectl && source <(kubectl completion zsh)
 
 # aws
 alias awsv='aws-vault exec'
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# network
+alias restart_en0='sudo ifconfig en0 down && sudo ifconfig en0 up'
+
+# go
+export PATH=$PATH:~/go/bin
+
+# >>> talisman >>>
+# Below environment variables should not be modified unless you know what you are doing
+export TALISMAN_HOME=/Users/tuateerasak/.talisman/bin
+alias talisman=$TALISMAN_HOME/talisman_darwin_arm64
+export TALISMAN_INTERACTIVE=false
+# <<< talisman <<<
+
+# useful only for Mac OS Silicon M1, 
+# still working but useless for the other platforms
+docker() {
+	if [[ `uname -m` == "arm64" ]] && [[ "$1" == "run" || "$1" == "build" ]]; then
+		/opt/homebrew/bin/docker "$1" --platform linux/amd64 "${@:2}"
+	else
+		/opt/homebrew/bin/docker "$@"
+	fi
+}
