@@ -1,9 +1,4 @@
+terraform 1.0.11
+java adoptopenjdk-17.0.1+12
 nodejs 16.13.0
-direnv 2.21.3
-java adoptopenjdk-8.0.312+7
-terraform 1.0.0
-packer 1.7.2
-dotnet-core 2.2.207
-scala 2.11.12
-sbt 1.1.6
-spark 2.4.8
+ruby 3.1.0
