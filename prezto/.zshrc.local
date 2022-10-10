@@ -52,6 +52,7 @@ then
   # Show Hidden in Finder OSX
   alias showHiddenFinder="defaults write com.apple.finder AppleShowAllFiles YES"
   alias hideHiddenFinder="defaults write com.apple.finder AppleShowAllFiles NO"
+fi
 
 # Python - short cmd to call nosetests --with-coverage and filter Third-party Librarie
 alias nosecoverage="nosetests --with-coverage  --cover-erase --cover-package=\$(ls | grep '.py$' | sed 's/[.]py$//' | xargs | sed 's/[\ ]/,/g')"
@@ -107,13 +108,6 @@ alias restart_en0='sudo ifconfig en0 down && sudo ifconfig en0 up'
 # go
 export PATH=$PATH:~/go/bin
 
-# >>> talisman >>>
-# Below environment variables should not be modified unless you know what you are doing
-export TALISMAN_HOME=/Users/tuateerasak/.talisman/bin
-alias talisman=$TALISMAN_HOME/talisman_darwin_arm64
-export TALISMAN_INTERACTIVE=false
-# <<< talisman <<<
-
 # useful only for Mac OS Silicon M1, 
 # still working but useless for the other platforms
 docker() {
@@ -123,3 +117,11 @@ docker() {
 		/opt/homebrew/bin/docker "$@"
 	fi
 }
+
+# >>> talisman >>>
+# Below environment variables should not be modified unless you know what you are doing
+export TALISMAN_HOME=~/.talisman/bin
+alias talisman=$TALISMAN_HOME/talisman_darwin_arm64
+export TALISMAN_INTERACTIVE=false
+# <<< talisman <<<
+
