@@ -16,6 +16,8 @@ Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 Plug 'vim-scripts/ZoomWin', { 'on': 'ZoomWin' }
 Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPTag'] }
 Plug 'chrisbra/NrrwRgn'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Coding
 Plug 'Yggdroot/indentLine'
@@ -25,6 +27,8 @@ Plug 'ddollar/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'ibotdotout/vimrc-custom'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " Git
 Plug 'tpope/vim-fugitive'
