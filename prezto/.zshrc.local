@@ -23,6 +23,10 @@ export PATH=/usr/local/sbin:$PATH
 export EDITOR='vim'
 export VISUAL='vim'
 
+# zsh alias expand
+# default: c-x a -> tab
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+
 # zoxide
 eval "$(zoxide init zsh)"
 
@@ -124,4 +128,3 @@ export TALISMAN_HOME=~/.talisman/bin
 alias talisman=$TALISMAN_HOME/talisman_darwin_arm64
 export TALISMAN_INTERACTIVE=false
 # <<< talisman <<<
-
