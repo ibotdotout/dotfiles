@@ -5,21 +5,20 @@
 - clean: ['~']
 
 - link:
-    # Vim Configuration
+    # vim
     ~/.vimrc: vim/.vimrc
     ~/.vimrc.local: vim/.vimrc.local
 
-    # TMUX Configuration
+    # tmux
     ~/.tmux.conf: tmux/.tmux.conf
 
-    # Git Configuration
+    # git
     ~/.gitconfig: git/.gitconfig
     ~/.gitignore_global: git/.gitignore_global
 
-    # Prezto Zsh Configuration
-    ~/.zshrc: prezto/.zshrc
-    ~/.zshrc.local: prezto/.zshrc.local
-    ~/.zpreztorc: prezto/.zpreztorc
+    # zsh
+    ~/.zshrc: zsh/.zshrc
+    ~/.zshrc.local: zsh/.zshrc.local
 
     # asdf
     ~/.tool-versions: asdf/.tool-versions

@@ -1,12 +1,12 @@
 #!/bin/bash
 
 VIMPLUG_PATH="$HOME/.vim/autoload/plug.vim"
-PREZTO_PATH="$HOME/.zprezto"
+HOMEBREW="/usr/loca/Homebrew"
 
 if [[ `uname` == 'Darwin' ]]
 then
     # Install Homebrew & Cask
-    if [ ! hash git 2>/dev/null ]; then
+    if [ ! -f "$HOMEBREW" ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
         eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -19,15 +19,6 @@ then
 else
     echo "brew not supports Linux, your need manual install dependentcies."
     echo "your install git, vim, tmux, zsh for the rest."
-fi
-
-# Install prezto
-if [ ! -d "$PREZTO_PATH" ]; then
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git $PREZTO_PATH
-else
-    echo "ZSH Prezto is already installed!"
-    cd $PREZTO_PATH && git pull && git submodule update --init --recursive
-    cd -
 fi
 
 # Link dotfiles
