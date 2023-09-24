@@ -4,8 +4,8 @@ OSX Dev Developement
 Fist `clone` and `cd` to dotfiles
 
 ```sh
-$ git clone git@github.com:ibotdotout/dotfiles.git .dotfiles
-$ cd .dotfiles
+$ git clone git@github.com:ibotdotout/dotfiles.git dotfiles
+$ cd dotfiles
 ```
 
 # Automate Install packages & Link all dotfiles
