@@ -1,8 +1,4 @@
 tap "codeforthailand/siam-ipa"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-versions"
-tap "homebrew/core"
 brew "autoconf"
 brew "automake"
 brew "coreutils"
