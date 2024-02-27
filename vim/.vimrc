@@ -7,7 +7,7 @@ let g:indentLine_leadingSpaceEnabled='1'
 
 " Vim Plugin
 Plug 'tpope/vim-sensible'
-Plug 'zhaocai/GoldenView.Vim'
+Plug 'camspiers/lens.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
 Plug 'takac/vim-hardtime'
@@ -71,9 +71,6 @@ nnoremap <leader>] :TagbarOpen fj<CR>
 " remap NERDComToggleComment
 map <leader>/ <leader>c<Space>
 
-" disable GoldenView.vim mapping
-let g:goldenview__enable_default_mapping = 0
-
 " CtrlP
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
@@ -127,6 +124,9 @@ let g:sneak#streak = 1
 
 "Tab to Space
 command CleanSpace :set expandtab | retab | FixWhitespace
+
+" lens.vim
+let g:lens#disabled_filetypes = ['nerdtree', 'fzf']
 
 " local settings
 try
