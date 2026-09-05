@@ -1,32 +1,59 @@
 tap "codeforthailand/siam-ipa"
-brew "autoconf"
-brew "automake"
-brew "coreutils"
-brew "libtool"
-brew "libyaml"
-brew "readline"
-brew "asdf"
+tap "homebrew/bundle"
+# Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Reimplementation of ctags(1)
 brew "ctags"
-brew "gettext"
+# Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
-brew "zoxide"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# Distributed revision control system
 brew "git"
+# GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Improved top (interactive process viewer)
 brew "htop"
+# User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Text interface for Git repositories
 brew "tig"
+# Terminal multiplexer
 brew "tmux"
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
-brew "vim"
+# Vi 'workalike' with many additional features
+brew "vim", link: false
+# Internet file retriever
 brew "wget"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# UNIX shell (command interpreter)
 brew "zsh"
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
+# Utility that prevents the system from going to sleep
+cask "caffeine"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Web browser
 cask "google-chrome"
-cask "iterm2"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 cask "thai-dict"
+# Open-source code editor
 cask "visual-studio-code"
