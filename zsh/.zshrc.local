@@ -77,7 +77,7 @@ alias awsume=". awsume"
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 # asdf vm via Homebrew
-. $(brew --prefix asdf)/libexec/asdf.sh
+#. $(brew --prefix asdf)/libexec/asdf.sh
 
 # rg all
 alias rgl='rg --no-ignore --hidden'
@@ -103,9 +103,6 @@ is-cmd-existed kubectl && source <(kubectl completion zsh)
 # aws
 alias awsv='aws-vault exec'
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # network
 alias restart_en0='sudo ifconfig en0 down && sudo ifconfig en0 up'
 
@@ -128,3 +125,6 @@ export TALISMAN_HOME=~/.talisman/bin
 alias talisman=$TALISMAN_HOME/talisman_darwin_arm64
 export TALISMAN_INTERACTIVE=false
 # <<< talisman <<<
+
+#podman
+#export DOCKER_HOST='unix:///private/tmp/podman/podman-machine-default-api.sock'

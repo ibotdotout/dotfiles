@@ -29,6 +29,7 @@ Plug 'ibotdotout/vimrc-custom'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'github/copilot.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
