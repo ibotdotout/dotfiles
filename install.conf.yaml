@@ -20,9 +20,6 @@
     ~/.zshrc: zsh/.zshrc
     ~/.zshrc.local: zsh/.zshrc.local
 
-    # asdf
-    ~/.tool-versions: asdf/.tool-versions
-
 - shell:
       - [git submodule update --init --recursive, Installing submodules]
       - [touch ~/.gitconfig_work ~/.gitconfig_personal, Creating Git profiles]
