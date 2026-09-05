@@ -42,6 +42,13 @@ brew "wget"
 brew "zoxide"
 # UNIX shell (command interpreter)
 brew "zsh"
+brew "eza"
+brew "fd"
+brew "bat"
+brew "tldr"
+brew "try"
+brew "neovim"
+brew "yt-dlp"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Utility that prevents the system from going to sleep
