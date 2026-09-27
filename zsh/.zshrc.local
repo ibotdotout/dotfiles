@@ -108,13 +108,13 @@ export PATH=$PATH:~/go/bin
 
 # useful only for Mac OS Silicon M1, 
 # still working but useless for the other platforms
-docker() {
-	if [[ `uname -m` == "arm64" ]] && [[ "$1" == "run" || "$1" == "build" ]]; then
-		/opt/homebrew/bin/docker "$1" --platform linux/amd64 "${@:2}"
-	else
-		/opt/homebrew/bin/docker "$@"
-	fi
-}
+# docker() {
+#     if [[ `uname -m` == "arm64" ]] && [[ "$1" == "run" || "$1" == "build" ]]; then
+#         /opt/homebrew/bin/docker "$1" --platform linux/amd64 "${@:2}"
+#     else
+#         /opt/homebrew/bin/docker "$@"
+#     fi
+# }
 
 # >>> talisman >>>
 # Below environment variables should not be modified unless you know what you are doing
