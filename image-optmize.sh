@@ -18,44 +18,75 @@ make_webp() {
     original_size="$3"
 
     tmp="${input}.tmp.webp"
-    resize_tmp="${input}.resize.webp"
+    normalized="${input}.normalized.png"
     best="${input}.best.webp"
     best_size="$original_size"
 
-    rm -f "$tmp" "$resize_tmp" "$best"
+    rm -f "$tmp" "$normalized" "$best"
+
+    # Try original first
+    source="$input"
 
     for dimension in original 2000 1600 1400 1200 1000 800; do
 
-        if [ "$dimension" = "original" ]; then
-            source="$input"
-        else
-            sips --resampleHeightWidthMax "$dimension" \
-                "$input" \
+        if [ "$dimension" != "original" ]; then
+            resize_tmp="${input}.resize.png"
+            rm -f "$resize_tmp"
+
+            sips \
+                --resampleHeightWidthMax "$dimension" \
+                "$source" \
+                --setProperty format png \
                 --out "$resize_tmp" >/dev/null 2>&1 || continue
+
+            [ -f "$resize_tmp" ] || continue
             source="$resize_tmp"
         fi
 
         for q in 90 82 75 68 60 52 45 38 32 26; do
 
-            cwebp -quiet -q "$q" "$source" \
-                -o "$tmp" 2>/dev/null || continue
+            rm -f "$tmp"
+
+            if ! cwebp \
+                -quiet \
+                -q "$q" \
+                "$source" \
+                -o "$tmp" 2>/dev/null; then
+
+                # cwebp couldn't decode the original.
+                # Normalize it through sips once.
+                if [ "$source" = "$input" ] && [ ! -f "$normalized" ]; then
+                    sips \
+                        "$input" \
+                        --setProperty format png \
+                        --out "$normalized" >/dev/null 2>&1 || continue
+
+                    source="$normalized"
+
+                    cwebp \
+                        -quiet \
+                        -q "$q" \
+                        "$source" \
+                        -o "$tmp" 2>/dev/null || continue
+                else
+                    continue
+                fi
+            fi
+
+            [ -f "$tmp" ] || continue
 
             size=$(stat -f%z "$tmp")
 
-            # Keep smallest result found
+            # Keep the smallest result found
             if [ "$size" -lt "$best_size" ]; then
                 cp "$tmp" "$best"
                 best_size="$size"
             fi
 
-            # Target reached → stop immediately
+            # Stop immediately once target is reached
             if [ "$size" -le "$TARGET_SIZE" ]; then
                 mv "$tmp" "$output"
-                rm -f "$best" "$resize_tmp"
-
-                echo "  → WebP: $(du -h "$output" | cut -f1)"
-                echo "  → Target reached: <= 100 KB"
-
+                rm -f "$best" "$normalized" "$resize_tmp"
                 return 0
             fi
         done
@@ -63,22 +94,17 @@ make_webp() {
         rm -f "$resize_tmp"
     done
 
-    rm -f "$tmp"
+    rm -f "$tmp" "$normalized" "$resize_tmp"
 
-    # Target not reached, but keep smallest result
+    # Target wasn't reached, but WebP is smaller than original
     if [ -f "$best" ] && [ "$best_size" -lt "$original_size" ]; then
         mv "$best" "$output"
-
-        echo "  → WebP: $(du -h "$output" | cut -f1)"
-        echo "  → Target not reached, but smaller than original"
-
         return 0
     fi
 
     rm -f "$best"
     return 1
 }
-
 
 # ----------------------------------------
 # Find Markdown files
