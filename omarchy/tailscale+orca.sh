@@ -1,0 +1,13 @@
+# Tailscale
+sudo pacman -S tailscale
+sudo tailscale down
+sudo tailscale up
+tailscale ip --4
+tailscale status
+# Orca
+yay -S stably-orca-bin
+mkdir -p ~/.local/bin
+ln -sf /usr/bin/stably-orca ~/.local/bin/orca
+orca #deskop
+orca serve --host 0.0.0.0 --port 8080 #headless
+
