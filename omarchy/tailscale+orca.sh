@@ -4,6 +4,7 @@ sudo tailscale down
 sudo tailscale up
 tailscale ip --4
 tailscale status
+omarchy plugin enable omarchy.tailscale
 # Orca
 yay -S stably-orca-bin
 mkdir -p ~/.local/bin
