@@ -5,6 +5,11 @@ sudo tailscale up
 tailscale ip --4
 tailscale status
 omarchy plugin enable omarchy.tailscale
+
+# Tailscale https
+# -- https://tailscale.com/docs/how-to/set-up-https-certificates
+# -- https://tailscale.com/docs/features/tailscale-serve
+
 # Orca
 yay -S stably-orca-bin
 mkdir -p ~/.local/bin
