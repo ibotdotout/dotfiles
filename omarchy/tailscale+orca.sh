@@ -9,6 +9,10 @@ omarchy plugin enable omarchy.tailscale
 # Tailscale https
 # -- https://tailscale.com/docs/how-to/set-up-https-certificates
 # -- https://tailscale.com/docs/features/tailscale-serve
+#
+# Tailscale send file
+# sudo tailscale file cp /path/to/file target-hostname-or-ip:
+# sudo tailscale file get .
 
 # Orca
 yay -S stably-orca-bin
