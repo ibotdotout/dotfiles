@@ -73,20 +73,34 @@ if command -v tailscale >/dev/null 2>&1; then
     tailscale set --ssh >/dev/null 2>&1 || run_as_root tailscale set --ssh >/dev/null 2>&1 || true
 fi
 
-# 5. Configure loose reverse path filtering (rp_filter) for Tailscale
+# 5. Configure loose reverse path filtering (rp_filter) for Tailscale & dual-NIC setups
 echo "==> Configuring reverse path filtering (rp_filter=2) for Tailscale..."
 cat << 'EOF' | run_as_root tee /etc/sysctl.d/99-tailscale.conf >/dev/null
 net.ipv4.conf.all.rp_filter = 2
 net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.all.arp_filter = 1
+net.ipv4.conf.default.arp_filter = 1
 EOF
 run_as_root sysctl -p /etc/sysctl.d/99-tailscale.conf >/dev/null 2>&1 || true
 
-# 6. Configure firewall (UFW) to permit Tailscale VPN and SSH traffic
+# Also configure UFW's sysctl file (UFW forcefully overrides sysctl.d with rp_filter=1 on boot/reload)
+if [ -f /etc/ufw/sysctl.conf ]; then
+    echo "==> Configuring rp_filter=2 in /etc/ufw/sysctl.conf (prevents UFW from resetting rp_filter to 1)..."
+    run_as_root sed -i 's|^net/ipv4/conf/default/rp_filter=.*|net/ipv4/conf/default/rp_filter=2|' /etc/ufw/sysctl.conf
+    run_as_root sed -i 's|^net/ipv4/conf/all/rp_filter=.*|net/ipv4/conf/all/rp_filter=2|' /etc/ufw/sysctl.conf
+fi
+
+# 6. Configure firewall (UFW) to permit Tailscale VPN, SSH, and local peer traffic
 if command -v ufw >/dev/null 2>&1; then
-    echo "==> Ensuring firewall allows Tailscale interface and ports..."
+    echo "==> Ensuring firewall allows Tailscale interface, ports, and local LAN peers..."
     run_as_root ufw allow in on tailscale0 comment "Tailscale VPN traffic" >/dev/null 2>&1 || true
     run_as_root ufw allow 41641/udp comment "Tailscale WireGuard listen port" >/dev/null 2>&1 || true
     run_as_root ufw allow 22/tcp comment "OpenSSH port" >/dev/null 2>&1 || true
+    # Allow local subnet so Tailscale LAN peer-to-peer discovery & direct connections do not hang
+    LOCAL_SUBNET=$(ip route 2>/dev/null | grep -E "dev (enp|wlp|eth|wlan)" | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]+" | head -n 1 || echo "")
+    if [ -n "$LOCAL_SUBNET" ]; then
+        run_as_root ufw allow from "$LOCAL_SUBNET" comment "Local subnet peer access" >/dev/null 2>&1 || true
+    fi
     run_as_root ufw reload >/dev/null 2>&1 || true
 fi
 
@@ -143,6 +157,7 @@ echo " - Lingering status    : $(loginctl show-user "$TARGET_USER" --property=Li
 echo " - tailscaled status   : $(systemctl is-active tailscaled.service 2>/dev/null || echo 'inactive')"
 echo " - sshd status         : $(systemctl is-active sshd.service 2>/dev/null || echo 'inactive')"
 echo " - Tailscale SSH       : $(tailscale debug prefs 2>/dev/null | jq -r 'if .RunSSH then "enabled" else "disabled" end' 2>/dev/null || echo 'unknown')"
+echo " - rp_filter (all)     : $(sysctl -n net.ipv4.conf.all.rp_filter 2>/dev/null || echo 'unknown') (expected: 2)"
 echo " - herdr.service status: $(run_as_user systemctl --user is-active herdr.service 2>/dev/null || echo 'inactive')"
 echo "======================================================================"
 
