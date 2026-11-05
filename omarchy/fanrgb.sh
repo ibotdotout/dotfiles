@@ -1,33 +1,40 @@
 #!/usr/bin/env bash
-# fanrgb.sh - Set fan RGB lighting to Breathing/Pulsing Rainbow using OpenRGB
+# fanrgb.sh - Set fan RGB lighting to Rainbow Color Cycle using OpenRGB
 # Hardware target: Gigabyte RGB Fusion 2.0 (ITE IT8297) & compatible fan headers
 
 set -euo pipefail
 
 DEFAULT_BRIGHTNESS=100
 DEFAULT_SPEED="medium"
-DEFAULT_MODE="breathing"
+DEFAULT_MODE="color-cycle"
 
 show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Set fan RGB lighting to a breathing/pulsing rainbow color cycle.
+Set fan RGB lighting to a rainbow color cycle or custom mode.
 
 Options:
+  -m, --mode <mode>         Set effect mode:
+                              color-cycle (Rainbow spectrum cycle, default)
+                              breathing   (Single-color pulse; requires --color)
+                              flashing    (Single-color flash)
+                              random      (Random color blinking)
+                              static      (Solid color)
+  -c, --color <hex>         Set hex color for single-color modes (e.g. FF00AA, 00FF00)
+                            (default for breathing: random)
   -b, --brightness <0-100>  Set LED brightness percentage (default: ${DEFAULT_BRIGHTNESS})
   -s, --speed <slow|med|fast|1-5>
                             Set effect speed (default: ${DEFAULT_SPEED})
-  -m, --mode <mode>         Set specific mode: breathing, color-cycle, pulse
-                            (default: ${DEFAULT_MODE})
-  -d, --device <id/name>    Target a specific OpenRGB device index or name
-  -l, --list                List detected RGB devices and available modes
+  -d, --device <id/name>    Target a specific OpenRGB device index or name (default: 0)
+  -l, --list                List detected RGB devices and supported modes in detail
   -h, --help                Show this help message
 
 Examples:
-  $(basename "$0")
-  $(basename "$0") --brightness 80 --speed fast
-  $(basename "$0") --mode color-cycle
+  $(basename "$0")                          # Rainbow spectrum cycle
+  $(basename "$0") --speed fast             # Faster rainbow cycle
+  $(basename "$0") -m breathing -c FF00FF   # Magenta breathing
+  $(basename "$0") --list                   # Show detailed device info
 EOF
 }
 
@@ -61,21 +68,26 @@ map_speed_value() {
 BRIGHTNESS="$DEFAULT_BRIGHTNESS"
 SPEED="$DEFAULT_SPEED"
 MODE="$DEFAULT_MODE"
+COLOR=""
 TARGET_DEVICE=""
 LIST_ONLY=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -m|--mode)
+            MODE="$2"
+            shift 2
+            ;;
+        -c|--color)
+            COLOR="$2"
+            shift 2
+            ;;
         -b|--brightness)
             BRIGHTNESS="$2"
             shift 2
             ;;
         -s|--speed)
             SPEED="$2"
-            shift 2
-            ;;
-        -m|--mode)
-            MODE="$2"
             shift 2
             ;;
         -d|--device)
@@ -101,8 +113,8 @@ done
 ensure_dependencies
 
 if [ "$LIST_ONLY" = true ]; then
-    echo "=== Detected RGB Devices ==="
-    openrgb --list-devices
+    echo "=== Detailed RGB Device Information ==="
+    openrgb --list-detailed
     exit 0
 fi
 
@@ -112,27 +124,47 @@ SPEED_VAL=$(map_speed_value "$SPEED")
 # Build OpenRGB command arguments
 OPENRGB_ARGS=()
 
-# Determine mode flag
+if [[ -n "$TARGET_DEVICE" ]]; then
+    OPENRGB_ARGS+=(--device "$TARGET_DEVICE")
+fi
+
+# Determine mode flag and color handling
 case "${MODE,,}" in
-    breathing|breath)
-        OPENRGB_ARGS+=(--mode breathing)
-        ;;
-    color-cycle|colorcycle|cycle)
+    color-cycle|colorcycle|cycle|rainbow)
         OPENRGB_ARGS+=(--mode "Color Cycle")
         ;;
-    pulse|pulsing)
-        OPENRGB_ARGS+=(--mode pulsating)
+    breathing|breath|pulse|pulsing)
+        OPENRGB_ARGS+=(--mode "Breathing")
+        if [[ -z "$COLOR" ]]; then
+            # Breathing requires 1 color; default to random if not specified
+            COLOR="random"
+        fi
         ;;
-    rainbow)
-        OPENRGB_ARGS+=(--mode rainbow)
+    flashing|flash)
+        OPENRGB_ARGS+=(--mode "Flashing")
+        if [[ -z "$COLOR" ]]; then
+            COLOR="random"
+        fi
+        ;;
+    random)
+        OPENRGB_ARGS+=(--mode "Random")
+        ;;
+    static)
+        OPENRGB_ARGS+=(--mode "Static")
+        if [[ -z "$COLOR" ]]; then
+            COLOR="FFFFFF"
+        fi
         ;;
     *)
         OPENRGB_ARGS+=(--mode "$MODE")
         ;;
 esac
 
-if [[ -n "$TARGET_DEVICE" ]]; then
-    OPENRGB_ARGS+=(--device "$TARGET_DEVICE")
+# Append color if specified/required
+if [[ -n "$COLOR" ]]; then
+    # Strip any leading '#' if user supplied hex color like #FF00FF
+    COLOR="${COLOR#"#"}"
+    OPENRGB_ARGS+=(--color "$COLOR")
 fi
 
 if [[ -n "$BRIGHTNESS" ]]; then
@@ -145,6 +177,9 @@ fi
 
 echo "Setting fan RGB effect..."
 echo "  Mode:       $MODE"
+if [[ -n "$COLOR" ]]; then
+    echo "  Color:      $COLOR"
+fi
 echo "  Brightness: ${BRIGHTNESS}%"
 echo "  Speed:      $SPEED ($SPEED_VAL)"
 if [[ -n "$TARGET_DEVICE" ]]; then
@@ -162,7 +197,6 @@ else
     echo "Notice: OpenRGB returned exit code $EXIT_CODE." >&2
     echo "If devices were not detected or permission was denied, verify that:" >&2
     echo " 1. OpenRGB udev rules are loaded (/usr/lib/udev/rules.d/60-openrgb.rules)." >&2
-    echo " 2. Your user is in the 'i2c' group (if SMBus is needed): sudo usermod -aG i2c $USER" >&2
-    echo " 3. You can inspect connected devices using: $(basename "$0") --list" >&2
+    echo " 2. Inspect connected devices using: $(basename "$0") --list" >&2
     exit $EXIT_CODE
 fi
