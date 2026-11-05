@@ -2,7 +2,7 @@
 #
 # enable-user-lingering.sh
 #
-# Enables user lingering and sets up services so Tailscale and Herdr
+# Enables user lingering and sets up services so Tailscale, SSH, and Herdr
 # start automatically on boot without requiring a user login.
 #
 # NOTE ON BIOS CONFIGURATION:
@@ -16,11 +16,28 @@ set -euo pipefail
 
 TARGET_USER="${SUDO_USER:-$USER}"
 TARGET_HOME=$(getent passwd "$TARGET_USER" | cut -d: -f6)
+TARGET_UID=$(id -u "$TARGET_USER")
 SERVICE_DIR="$TARGET_HOME/.config/systemd/user"
 SERVICE_FILE="$SERVICE_DIR/herdr.service"
 
+run_as_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+run_as_user() {
+    if [ "$(id -u)" -eq 0 ] && [ -n "${SUDO_USER:-}" ]; then
+        sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="/run/user/$TARGET_UID" "$@"
+    else
+        "$@"
+    fi
+}
+
 echo "======================================================================"
-echo " Setting up Tailscale and Herdr for unattended boot (User Lingering)"
+echo " Setting up Tailscale, SSH, and Herdr for unattended boot"
 echo " Target user: $TARGET_USER"
 echo "======================================================================"
 
@@ -30,7 +47,7 @@ if [ "$CURRENT_LINGER" = "yes" ]; then
     echo "==> User lingering is already enabled for $TARGET_USER."
 else
     echo "==> Enabling systemd user lingering for $TARGET_USER..."
-    loginctl enable-linger "$TARGET_USER" 2>/dev/null || sudo loginctl enable-linger "$TARGET_USER"
+    loginctl enable-linger "$TARGET_USER" 2>/dev/null || run_as_root loginctl enable-linger "$TARGET_USER"
 fi
 
 # 2. Enable and start Tailscale system service
@@ -38,20 +55,30 @@ if systemctl is-enabled tailscaled.service >/dev/null 2>&1 && systemctl is-activ
     echo "==> tailscaled.service is already enabled and running."
 else
     echo "==> Enabling and starting tailscaled system service..."
-    if [ "$(id -u)" -eq 0 ]; then
-        systemctl enable --now tailscaled.service
-    else
-        sudo systemctl enable --now tailscaled.service
-    fi
+    run_as_root systemctl enable --now tailscaled.service
 fi
 
-# 3. Create systemd user service directory
+# 3. Enable and start OpenSSH daemon (sshd.service)
+if systemctl is-enabled sshd.service >/dev/null 2>&1 && systemctl is-active sshd.service >/dev/null 2>&1; then
+    echo "==> sshd.service is already enabled and running."
+else
+    echo "==> Enabling and starting sshd.service..."
+    run_as_root systemctl enable --now sshd.service
+fi
+
+# 4. Enable Tailscale SSH
+if command -v tailscale >/dev/null 2>&1; then
+    echo "==> Ensuring Tailscale SSH is enabled in Tailscale..."
+    tailscale set --ssh >/dev/null 2>&1 || run_as_root tailscale set --ssh >/dev/null 2>&1 || true
+fi
+
+# 5. Create systemd user service directory
 mkdir -p "$SERVICE_DIR"
 
-# 4. Stop any existing unmanaged herdr server instances to let systemd supervise
-if pgrep -x herdr >/dev/null 2>&1 && ! systemctl --user is-active herdr.service >/dev/null 2>&1; then
+# 6. Stop any existing unmanaged herdr server instances to let systemd supervise
+if pgrep -x herdr >/dev/null 2>&1 && ! run_as_user systemctl --user is-active herdr.service >/dev/null 2>&1; then
     echo "==> Stopping existing unmanaged herdr server..."
-    herdr server stop 2>/dev/null || true
+    run_as_user herdr server stop 2>/dev/null || true
     sleep 1
     if pgrep -x herdr >/dev/null 2>&1; then
         pkill -x herdr 2>/dev/null || true
@@ -59,7 +86,7 @@ if pgrep -x herdr >/dev/null 2>&1 && ! systemctl --user is-active herdr.service 
     fi
 fi
 
-# 5. Create herdr.service unit file
+# 7. Create herdr.service unit file
 echo "==> Writing $SERVICE_FILE..."
 cat << 'EOF' > "$SERVICE_FILE"
 [Unit]
@@ -85,30 +112,38 @@ if [ "$(id -u)" -eq 0 ] && [ -n "${SUDO_USER:-}" ]; then
     chown -R "$TARGET_USER:$TARGET_USER" "$SERVICE_DIR"
 fi
 
-# 6. Reload user systemd daemon, enable and start herdr.service
+# 8. Reload user systemd daemon, enable and start herdr.service
 echo "==> Reloading user systemd daemon and enabling herdr.service..."
-systemctl --user daemon-reload
-systemctl --user enable --now herdr.service
+run_as_user systemctl --user daemon-reload
+run_as_user systemctl --user enable --now herdr.service
 
-# 7. Verification and status display
+# 9. Verification and status display
 echo ""
 echo "======================================================================"
 echo " ==> Verification Status:"
-echo " - Lingering status   : $(loginctl show-user "$TARGET_USER" --property=Linger --value 2>/dev/null || echo 'unknown')"
-echo " - tailscaled status  : $(systemctl is-active tailscaled.service 2>/dev/null || echo 'inactive')"
-echo " - herdr.service status: $(systemctl --user is-active herdr.service 2>/dev/null || echo 'inactive')"
+echo " - Lingering status    : $(loginctl show-user "$TARGET_USER" --property=Linger --value 2>/dev/null || echo 'unknown')"
+echo " - tailscaled status   : $(systemctl is-active tailscaled.service 2>/dev/null || echo 'inactive')"
+echo " - sshd status         : $(systemctl is-active sshd.service 2>/dev/null || echo 'inactive')"
+echo " - Tailscale SSH       : $(tailscale debug prefs 2>/dev/null | jq -r 'if .RunSSH then "enabled" else "disabled" end' 2>/dev/null || echo 'unknown')"
+echo " - herdr.service status: $(run_as_user systemctl --user is-active herdr.service 2>/dev/null || echo 'inactive')"
 echo "======================================================================"
 
 if command -v herdr >/dev/null 2>&1; then
     sleep 1
     echo ""
     echo "==> Herdr Server Info:"
-    herdr status server || true
+    run_as_user herdr status server || true
 fi
 
 echo ""
 echo "======================================================================"
-echo " NOTE: Enable 'AC Power Recovery' / 'Restore on AC/Power Loss' in your"
-echo " BIOS/UEFI settings to ensure the machine powers on automatically"
-echo " after any power outage or AC disconnect."
+echo " SSH USAGE NOTE:"
+echo " When connecting via SSH (standard or Tailscale SSH), specify your"
+echo " local username, for example:"
+echo "     ssh $TARGET_USER@<tailscale-ip-or-host>"
+echo " or configure 'User $TARGET_USER' in your client's ~/.ssh/config."
+echo ""
+echo " BIOS NOTE:"
+echo " Enable 'AC Power Recovery' / 'Restore on AC/Power Loss' in your"
+echo " BIOS/UEFI settings to ensure the machine powers on automatically."
 echo "======================================================================"
