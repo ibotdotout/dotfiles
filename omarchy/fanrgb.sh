@@ -6,18 +6,18 @@ set -euo pipefail
 
 DEFAULT_BRIGHTNESS=100
 DEFAULT_SPEED="medium"
-DEFAULT_MODE="breathing"
+DEFAULT_MODE="color-cycle"
 
 show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Set fan RGB lighting to breathing or custom mode.
+Set fan RGB lighting to a breathing/pulsing rainbow cycle or custom mode.
 
 Options:
   -m, --mode <mode>         Set effect mode:
-                              breathing   (Breathing pulse, default)
-                              color-cycle (Rainbow spectrum cycle)
+                              color-cycle (Breathing pulsing rainbow cycle, default)
+                              breathing   (Single-color pulse; requires --color)
                               flashing    (Single-color flash)
                               random      (Random color blinking)
                               static      (Solid color)
@@ -25,7 +25,7 @@ Options:
       --off                 Turn off fan RGB lighting (shortcut for '--mode off')
       --red                 Set fan RGB to solid Red (shortcut for '-m static -c FF0000')
       --red-breathing       Set fan RGB to breathing Red (shortcut for '-m breathing -c FF0000')
-      --rainbow             Set fan RGB to rainbow color cycle (shortcut for '--mode color-cycle')
+      --rainbow             Set fan RGB to breathing pulsing rainbow cycle
   -c, --color <hex>         Set hex color for single-color modes (e.g. FF0000, 00FF00)
                             (default for breathing: random)
   -b, --brightness <0-100>  Set LED brightness percentage (default: ${DEFAULT_BRIGHTNESS})
@@ -39,12 +39,12 @@ Options:
   -h, --help                Show this help message
 
 Examples:
-  $(basename "$0")                          # Breathing rainbow cycle (default)
+  $(basename "$0")                          # Breathing pulsing rainbow cycle (default)
   $(basename "$0") --red                    # Set to solid Red
-  $(basename "$0") -m breathing -c FF0000   # Set to breathing Red
-  $(basename "$0") --rainbow                # Smooth rainbow color cycle
+  $(basename "$0") --red-breathing          # Set to breathing Red
+  $(basename "$0") --rainbow                # Breathing pulsing rainbow cycle
   $(basename "$0") --off                    # Turn off fan RGB
-  $(basename "$0") --speed fast             # Faster breathing cycle
+  $(basename "$0") --speed fast             # Faster cycle speed
   $(basename "$0") --install-shutdown       # Ensure shutdown service hook is active
   $(basename "$0") --list                   # Show detailed device info
 EOF
@@ -285,7 +285,7 @@ case "${MODE,,}" in
     off|none)
         DEVICE_ARGS+=(--mode "Static" --color "000000" --brightness 0)
         ;;
-    color-cycle|colorcycle|cycle|rainbow)
+    color-cycle|colorcycle|cycle|rainbow|breathing-rainbow|pulse-rainbow)
         DEVICE_ARGS+=(--mode "Color Cycle")
         ;;
     breathing|breath|pulse|pulsing)
