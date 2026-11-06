@@ -12,19 +12,18 @@ show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Set fan RGB lighting to a rainbow color cycle or custom mode.
+Set fan RGB lighting to a breathing/pulsing rainbow color cycle or custom mode.
 
 Options:
   -m, --mode <mode>         Set effect mode:
                               color-cycle (Rainbow spectrum cycle, default)
-                              breathing   (Single-color pulse; requires --color)
-                              flashing    (Single-color flash)
+                              breathing   (Single-color pulse; requires -c)
+                              flashing    (Single-color flash; requires -c)
                               random      (Random color blinking)
-                              static      (Solid color)
+                              static      (Solid color; requires -c)
                               off         (Turn off fan RGB lighting)
       --off                 Turn off fan RGB lighting (shortcut for '--mode off')
   -c, --color <hex>         Set hex color for single-color modes (e.g. FF00AA, 00FF00)
-                            (default for breathing: random)
   -b, --brightness <0-100>  Set LED brightness percentage (default: ${DEFAULT_BRIGHTNESS})
   -s, --speed <slow|med|fast|1-5>
                             Set effect speed (default: ${DEFAULT_SPEED})
@@ -36,7 +35,7 @@ Options:
   -h, --help                Show this help message
 
 Examples:
-  $(basename "$0")                          # Rainbow spectrum cycle
+  $(basename "$0")                          # Breathing/pulsing rainbow cycle
   $(basename "$0") --speed fast             # Faster rainbow cycle
   $(basename "$0") -m breathing -c FF00FF   # Magenta breathing
   $(basename "$0") --off                    # Turn off fan RGB
@@ -271,25 +270,15 @@ case "${MODE,,}" in
         ;;
     breathing|breath|pulse|pulsing)
         DEVICE_ARGS+=(--mode "Breathing")
-        if [[ -z "$COLOR" ]]; then
-            # Breathing requires 1 color; default to random if not specified
-            COLOR="random"
-        fi
         ;;
     flashing|flash)
         DEVICE_ARGS+=(--mode "Flashing")
-        if [[ -z "$COLOR" ]]; then
-            COLOR="random"
-        fi
         ;;
     random)
         DEVICE_ARGS+=(--mode "Random")
         ;;
     static)
         DEVICE_ARGS+=(--mode "Static")
-        if [[ -z "$COLOR" ]]; then
-            COLOR="FFFFFF"
-        fi
         ;;
     *)
         DEVICE_ARGS+=(--mode "$MODE")
