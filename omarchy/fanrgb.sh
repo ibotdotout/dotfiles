@@ -6,25 +6,26 @@ set -euo pipefail
 
 DEFAULT_BRIGHTNESS=100
 DEFAULT_SPEED="medium"
-DEFAULT_MODE="breathing"
+DEFAULT_MODE="color-cycle"
 
 show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Set fan RGB lighting to a breathing rainbow cycle or custom mode.
+Set fan RGB lighting to rainbow color cycle or custom mode.
 
 Options:
   -m, --mode <mode>         Set effect mode:
-                              breathing   (Breathing rainbow pulse, default)
-                              color-cycle (Rainbow spectrum cycle)
+                              color-cycle (Rainbow spectrum cycle, default)
+                              breathing   (Single-color pulse; requires --color)
                               flashing    (Single-color flash)
                               random      (Random color blinking)
                               static      (Solid color)
                               off         (Turn off fan RGB lighting)
       --off                 Turn off fan RGB lighting (shortcut for '--mode off')
       --red                 Set fan RGB to solid Red (shortcut for '-m static -c FF0000')
-      --rainbow             Set fan RGB to continuous rainbow color cycle
+      --red-breathing       Set fan RGB to breathing Red (shortcut for '-m breathing -c FF0000')
+      --rainbow             Set fan RGB to rainbow color cycle (shortcut for '--mode color-cycle')
   -c, --color <hex>         Set hex color for single-color modes (e.g. FF0000, 00FF00)
                             (default for breathing: random)
   -b, --brightness <0-100>  Set LED brightness percentage (default: ${DEFAULT_BRIGHTNESS})
@@ -61,6 +62,12 @@ ensure_dependencies() {
             echo "Error: pacman package manager not found. Please install openrgb manually." >&2
             exit 1
         fi
+    fi
+
+    # Ensure ARGB header zones (D_LED1, D_LED2) are allocated with 60 LEDs
+    local config_file="${XDG_CONFIG_HOME:-$HOME/.config}/OpenRGB/Configuration.json"
+    if [[ ! -f "$config_file" ]] || ! grep -q '"name": "D_LED1, LED 60"' "$config_file" 2>/dev/null; then
+        openrgb -d 0 -z 0 -sz 60 -z 1 -sz 60 >/dev/null 2>&1 || true
     fi
 }
 
@@ -198,6 +205,11 @@ while [[ $# -gt 0 ]]; do
             ;;
         --red)
             MODE="static"
+            COLOR="FF0000"
+            shift
+            ;;
+        --red-breathing)
+            MODE="breathing"
             COLOR="FF0000"
             shift
             ;;
