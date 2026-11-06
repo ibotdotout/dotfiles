@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fanrgb.sh - Set fan RGB lighting to Rainbow Color Cycle using OpenRGB
+# fanrgb.sh - Set fan RGB lighting to Breathing Rainbow Cycle using OpenRGB
 # Hardware target: Gigabyte RGB Fusion 2.0 (ITE IT8297) & compatible fan headers
 
 set -euo pipefail
@@ -23,12 +23,14 @@ Options:
                               static      (Solid color)
                               off         (Turn off fan RGB lighting)
       --off                 Turn off fan RGB lighting (shortcut for '--mode off')
-  -c, --color <hex>         Set hex color for single-color modes (e.g. FF00AA, 00FF00)
+      --red                 Set fan RGB to solid Red (shortcut for '-m static -c FF0000')
+      --rainbow             Set fan RGB to continuous rainbow color cycle
+  -c, --color <hex>         Set hex color for single-color modes (e.g. FF0000, 00FF00)
                             (default for breathing: random)
   -b, --brightness <0-100>  Set LED brightness percentage (default: ${DEFAULT_BRIGHTNESS})
   -s, --speed <slow|med|fast|1-5>
                             Set effect speed (default: ${DEFAULT_SPEED})
-  -d, --device <id/name>    Target a specific OpenRGB device index or name (default: 0)
+  -d, --device <id/name>    Target a specific OpenRGB device index or name (default: all detected)
       --install-shutdown    Install and enable user systemd service to automatically
                             turn off fan RGB when system shuts down or reboots
       --uninstall-shutdown  Disable and remove the shutdown service hook
@@ -37,11 +39,11 @@ Options:
 
 Examples:
   $(basename "$0")                          # Breathing rainbow cycle (default)
-  $(basename "$0") -m color-cycle           # Smooth rainbow spectrum cycle
+  $(basename "$0") --red                    # Set to solid Red
+  $(basename "$0") -m breathing -c FF0000   # Set to breathing Red
+  $(basename "$0") --rainbow                # Smooth rainbow color cycle
   $(basename "$0") --off                    # Turn off fan RGB
   $(basename "$0") --speed fast             # Faster breathing cycle
-  $(basename "$0") -m breathing -c FF00FF   # Magenta breathing
-  $(basename "$0") -m static -c FF0000      # Solid red
   $(basename "$0") --install-shutdown       # Ensure shutdown service hook is active
   $(basename "$0") --list                   # Show detailed device info
 EOF
@@ -62,7 +64,22 @@ ensure_dependencies() {
     fi
 }
 
+get_script_path() {
+    local source="${BASH_SOURCE[0]}"
+    while [ -h "$source" ]; do
+        local dir="$(cd -P "$(dirname "$source")" && pwd)"
+        source="$(readlink "$source")"
+        [[ $source != /* ]] && source="$dir/$source"
+    done
+    cd -P "$(dirname "$source")" && pwd
+}
+
 ensure_shutdown_service() {
+    # Skip service checks when turning off (e.g. during shutdown)
+    if [[ "${MODE,,}" == "off" || "${MODE,,}" == "none" ]]; then
+        return 0
+    fi
+
     local service_dir="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
     local service_file="$service_dir/fanrgb-shutdown.service"
 
@@ -77,7 +94,7 @@ Documentation=https://openrgb.org
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/true
-ExecStop=/usr/bin/openrgb -m static -c 000000 -b 0
+ExecStop=/usr/bin/openrgb -d 0 -m static -c 000000 -b 0
 
 [Install]
 WantedBy=default.target
@@ -111,7 +128,7 @@ Documentation=https://openrgb.org
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/true
-ExecStop=/usr/bin/openrgb -m static -c 000000 -b 0
+ExecStop=/usr/bin/openrgb -d 0 -m static -c 000000 -b 0
 
 [Install]
 WantedBy=default.target
@@ -134,6 +151,20 @@ uninstall_shutdown_service() {
     rm -f "$service_file"
     systemctl --user daemon-reload >/dev/null 2>&1 || true
     echo "--> Shutdown hook service removed."
+}
+
+get_detected_devices() {
+    local devs=()
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^([0-9]+): ]]; then
+            devs+=("${BASH_REMATCH[1]}")
+        fi
+    done < <(openrgb --list-devices 2>/dev/null || true)
+
+    if [[ ${#devs[@]} -eq 0 ]]; then
+        devs=(0)
+    fi
+    echo "${devs[@]}"
 }
 
 map_speed_value() {
@@ -163,6 +194,15 @@ while [[ $# -gt 0 ]]; do
             ;;
         --off)
             MODE="off"
+            shift
+            ;;
+        --red)
+            MODE="static"
+            COLOR="FF0000"
+            shift
+            ;;
+        --rainbow|--cycle)
+            MODE="color-cycle"
             shift
             ;;
         -c|--color)
@@ -217,45 +257,49 @@ fi
 # Normalize speed
 SPEED_VAL=$(map_speed_value "$SPEED")
 
-# Build OpenRGB command arguments
-OPENRGB_ARGS=()
-
+# Build target device list (OpenRGB CLI requires -d <id> before mode/color flags)
+TARGET_DEVICES=()
 if [[ -n "$TARGET_DEVICE" ]]; then
-    OPENRGB_ARGS+=(--device "$TARGET_DEVICE")
+    TARGET_DEVICES=("$TARGET_DEVICE")
+else
+    read -r -a TARGET_DEVICES <<< "$(get_detected_devices)"
 fi
+
+# Build OpenRGB command arguments
+DEVICE_ARGS=()
 
 # Determine mode flag and color handling
 case "${MODE,,}" in
     off|none)
-        OPENRGB_ARGS+=(--mode "Static" --color "000000" --brightness 0)
+        DEVICE_ARGS+=(--mode "Static" --color "000000" --brightness 0)
         ;;
     color-cycle|colorcycle|cycle|rainbow)
-        OPENRGB_ARGS+=(--mode "Color Cycle")
+        DEVICE_ARGS+=(--mode "Color Cycle")
         ;;
     breathing|breath|pulse|pulsing)
-        OPENRGB_ARGS+=(--mode "Breathing")
+        DEVICE_ARGS+=(--mode "Breathing")
         if [[ -z "$COLOR" ]]; then
             # Breathing requires 1 color; default to random if not specified
             COLOR="random"
         fi
         ;;
     flashing|flash)
-        OPENRGB_ARGS+=(--mode "Flashing")
+        DEVICE_ARGS+=(--mode "Flashing")
         if [[ -z "$COLOR" ]]; then
             COLOR="random"
         fi
         ;;
     random)
-        OPENRGB_ARGS+=(--mode "Random")
+        DEVICE_ARGS+=(--mode "Random")
         ;;
     static)
-        OPENRGB_ARGS+=(--mode "Static")
+        DEVICE_ARGS+=(--mode "Static")
         if [[ -z "$COLOR" ]]; then
             COLOR="FFFFFF"
         fi
         ;;
     *)
-        OPENRGB_ARGS+=(--mode "$MODE")
+        DEVICE_ARGS+=(--mode "$MODE")
         ;;
 esac
 
@@ -264,25 +308,27 @@ if [[ "${MODE,,}" != "off" && "${MODE,,}" != "none" ]]; then
     if [[ -n "$COLOR" ]]; then
         # Strip any leading '#' if user supplied hex color like #FF00FF
         COLOR="${COLOR#"#"}"
-        OPENRGB_ARGS+=(--color "$COLOR")
+        DEVICE_ARGS+=(--color "$COLOR")
     fi
 
     if [[ -n "$BRIGHTNESS" ]]; then
-        OPENRGB_ARGS+=(--brightness "$BRIGHTNESS")
+        DEVICE_ARGS+=(--brightness "$BRIGHTNESS")
     fi
 
     if [[ -n "$SPEED_VAL" ]]; then
-        OPENRGB_ARGS+=(--speed "$SPEED_VAL")
+        DEVICE_ARGS+=(--speed "$SPEED_VAL")
     fi
 fi
 
+# Build complete CLI arguments pairing each target device with its settings
+OPENRGB_CMD=()
+for dev in "${TARGET_DEVICES[@]}"; do
+    OPENRGB_CMD+=(-d "$dev" "${DEVICE_ARGS[@]}")
+done
+
 if [[ "${MODE,,}" == "off" || "${MODE,,}" == "none" ]]; then
     echo "Turning off fan RGB lighting..."
-    if [[ -n "$TARGET_DEVICE" ]]; then
-        echo "  Device:     $TARGET_DEVICE"
-    else
-        echo "  Device:     All detected devices"
-    fi
+    echo "  Devices:    ${TARGET_DEVICES[*]}"
 else
     echo "Setting fan RGB effect..."
     echo "  Mode:       $MODE"
@@ -291,15 +337,11 @@ else
     fi
     echo "  Brightness: ${BRIGHTNESS}%"
     echo "  Speed:      $SPEED ($SPEED_VAL)"
-    if [[ -n "$TARGET_DEVICE" ]]; then
-        echo "  Device:     $TARGET_DEVICE"
-    else
-        echo "  Device:     All detected devices"
-    fi
+    echo "  Devices:    ${TARGET_DEVICES[*]}"
 fi
 
 # Apply settings via OpenRGB
-if openrgb "${OPENRGB_ARGS[@]}" 2>&1; then
+if openrgb "${OPENRGB_CMD[@]}" 2>&1; then
     if [[ "${MODE,,}" == "off" || "${MODE,,}" == "none" ]]; then
         echo "Successfully turned off fan RGB lighting."
     else
