@@ -6,18 +6,18 @@ set -euo pipefail
 
 DEFAULT_BRIGHTNESS=100
 DEFAULT_SPEED="medium"
-DEFAULT_MODE="color-cycle"
+DEFAULT_MODE="breathing"
 
 show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Set fan RGB lighting to a rainbow color cycle or custom mode.
+Set fan RGB lighting to a breathing rainbow cycle or custom mode.
 
 Options:
   -m, --mode <mode>         Set effect mode:
-                              color-cycle (Rainbow spectrum cycle, default)
-                              breathing   (Single-color pulse; requires --color)
+                              breathing   (Breathing rainbow pulse, default)
+                              color-cycle (Rainbow spectrum cycle)
                               flashing    (Single-color flash)
                               random      (Random color blinking)
                               static      (Solid color)
@@ -36,10 +36,12 @@ Options:
   -h, --help                Show this help message
 
 Examples:
-  $(basename "$0")                          # Rainbow spectrum cycle
+  $(basename "$0")                          # Breathing rainbow cycle (default)
+  $(basename "$0") -m color-cycle           # Smooth rainbow spectrum cycle
   $(basename "$0") --off                    # Turn off fan RGB
-  $(basename "$0") --speed fast             # Faster rainbow cycle
+  $(basename "$0") --speed fast             # Faster breathing cycle
   $(basename "$0") -m breathing -c FF00FF   # Magenta breathing
+  $(basename "$0") -m static -c FF0000      # Solid red
   $(basename "$0") --install-shutdown       # Ensure shutdown service hook is active
   $(basename "$0") --list                   # Show detailed device info
 EOF
