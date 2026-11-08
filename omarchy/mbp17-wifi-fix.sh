@@ -96,9 +96,19 @@ else
 fi
 
 # ------------------------------------------------------------------------------
-# 4. RESTART SERVICES & REAPPLY CONFIGURATION
+# 4. CONFIGURE BROADCOM DRIVER OPTIONS (Disable buggy firmware roaming engine)
 # ------------------------------------------------------------------------------
-echo "[+] 4/4 Reloading NetworkManager and systemd-resolved..."
+echo "[+] 4/5 Setting brcmfmac driver options (roamoff=1 to prevent mesh association drops)..."
+cat > /etc/modprobe.d/brcmfmac.conf << 'EOF'
+# Broadcom firmware supplicant fails WPA four-way handshake on Apple hardware (feature_disable=0x82000)
+# and its internal roaming engine causes ASSOC-REJECT status 16 / drops on mesh networks (roamoff=1).
+options brcmfmac feature_disable=0x82000 roamoff=1
+EOF
+
+# ------------------------------------------------------------------------------
+# 5. RESTART SERVICES & REAPPLY CONFIGURATION
+# ------------------------------------------------------------------------------
+echo "[+] 5/5 Reloading NetworkManager and systemd-resolved..."
 
 systemctl restart systemd-resolved
 nmcli general reload conf >/dev/null 2>&1 || systemctl reload NetworkManager || true
