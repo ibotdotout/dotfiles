@@ -96,19 +96,30 @@ else
 fi
 
 # ------------------------------------------------------------------------------
-# 4. CONFIGURE BROADCOM DRIVER OPTIONS (Disable buggy firmware roaming engine)
+# 4. CONFIGURE BROADCOM DRIVER OPTIONS & APPLE NVRAM (Bugzilla 193121 Fix)
 # ------------------------------------------------------------------------------
-echo "[+] 4/5 Setting brcmfmac driver options (roamoff=1 to prevent mesh association drops)..."
+echo "[+] 4/6 Setting brcmfmac driver options (roamoff=1 to prevent mesh association drops)..."
 cat > /etc/modprobe.d/brcmfmac.conf << 'EOF'
 # Broadcom firmware supplicant fails WPA four-way handshake on Apple hardware (feature_disable=0x82000)
 # and its internal roaming engine causes ASSOC-REJECT status 16 / drops on mesh networks (roamoff=1).
 options brcmfmac feature_disable=0x82000 roamoff=1
 EOF
 
+echo "[+] 5/6 Optimizing Apple Broadcom NVRAM parameters (regrev=1 unthrottles 5 GHz TX power)..."
+NVRAM_TXT="/usr/lib/firmware/brcm/brcmfmac43602-pcie.txt"
+DMI_TXT="/usr/lib/firmware/brcm/brcmfmac43602-pcie.Apple Inc.-MacBookPro14,3.txt"
+if [ -f "$NVRAM_TXT" ]; then
+  cp -n "$NVRAM_TXT" "${NVRAM_TXT}.bak" 2>/dev/null || true
+  # Change regrev=245 to regrev=1 to unlock 5 GHz power limits
+  sed -i 's/^regrev=245/regrev=1/' "$NVRAM_TXT"
+  # Symlink DMI model name so the kernel loads it unambiguously
+  ln -sf "brcmfmac43602-pcie.txt" "$DMI_TXT"
+fi
+
 # ------------------------------------------------------------------------------
-# 5. RESTART SERVICES & REAPPLY CONFIGURATION
+# 6. RESTART SERVICES & REAPPLY CONFIGURATION
 # ------------------------------------------------------------------------------
-echo "[+] 5/5 Reloading NetworkManager and systemd-resolved..."
+echo "[+] 6/6 Reloading NetworkManager and systemd-resolved..."
 
 systemctl restart systemd-resolved
 nmcli general reload conf >/dev/null 2>&1 || systemctl reload NetworkManager || true
