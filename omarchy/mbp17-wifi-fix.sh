@@ -111,6 +111,8 @@ if [ -f "$NVRAM_TXT" ]; then
   cp -n "$NVRAM_TXT" "${NVRAM_TXT}.bak" 2>/dev/null || true
   # Change regrev=245 to regrev=1 to unlock 5 GHz power limits
   sed -i 's/^regrev=245/regrev=1/' "$NVRAM_TXT"
+  # Change ccode=00 to ccode=ALL to unlock full 5 GHz / DFS channels
+  sed -i 's/^ccode=00/ccode=ALL/' "$NVRAM_TXT"
   # Symlink DMI model name so the kernel loads it unambiguously
   ln -sf "brcmfmac43602-pcie.txt" "$DMI_TXT"
 fi
